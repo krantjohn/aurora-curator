@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>AURORA · 动漫美图工坊 | 100张角色画作高赞筛选与无损归档</title>
+  
+  <!-- Anti-Leak & Anti-Crawler Security Shield -->
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  
+  <!-- Compiled High-Performance Local CSS -->
+  <link rel="stylesheet" href="static/css/tailwind.min.css?v=20260902_22">
+  <link rel="stylesheet" href="static/css/app.css?v=20260902_22">
+  
+  <!-- Optimized Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Shippori+Mincho:wght@500;700&family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  
+  <!-- Local High-Speed Lucide Icons (Zero CDN latency) -->
+  <script src="static/js/lucide.min.js"></script>
+</head>
+<body class="bg-[#07070a] text-[#f5f5f7] min-h-screen flex flex-col font-sans selection:bg-[#c5a880] selection:text-black antialiased">
+  
+  <!-- Atmospheric Backgrounds -->
+  <div class="noise-bg"></div>
+  <div class="glow-sphere"></div>
+  <div class="glow-sphere-2"></div>
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#0f1016]/85 border-b border-white/10 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" onclick="navigate('home', event)" class="flex items-center gap-3 group text-decoration-none">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#c5a880]/30 to-[#ff5c8a]/20 border border-[#c5a880]/40 flex items-center justify-center shadow-lg shadow-[#c5a880]/10 transition-transform group-hover:scale-105">
+          <i data-lucide="sparkles" class="w-5 h-5 text-[#c5a880]"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-display font-extrabold tracking-widest text-white text-base">AURORA</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-[#c5a880]/15 text-[#c5a880] border border-[#c5a880]/30">CURATOR</span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-mono hidden sm:block">动漫角色原画高赞筛选 · 智能去重</p>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Tabs -->
+      <nav class="hidden md:flex items-center gap-2">
+        <button onclick="navigate('home')" id="nav-home" class="nav-tab-btn active">
+          <i data-lucide="compass" class="w-4 h-4"></i>
+          <span>首页发现</span>
+        </button>
+        <button onclick="navigate('characters')" id="nav-characters" class="nav-tab-btn">
+          <i data-lucide="users" class="w-4 h-4"></i>
+          <span>角色库</span>
+        </button>
+        <button onclick="navigate('favorites')" id="nav-favorites" class="nav-tab-btn">
+          <i data-lucide="heart" class="w-4 h-4"></i>
+          <span>永久收藏夹</span>
+        </button>
+        <button onclick="navigate('settings')" id="nav-settings" class="nav-tab-btn">
+          <i data-lucide="settings" class="w-4 h-4"></i>
+          <span>设置与授权</span>
+        </button>
+      </nav>
+
+      <!-- Right Side Status Badges -->
+      <div class="flex items-center gap-3">
+        <div id="top-rating-badge" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-mono">
+          <span id="top-rating-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="top-rating-text" class="text-slate-300">SFW 全年龄模式</span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-28 md:pb-8 relative z-10">
+    
+    <!-- ====================================================================
+         VIEW 1: 首页搜索与任务大厅 (HOME VIEW)
+         ==================================================================== -->
+    <section id="view-home" class="spa-view active flex flex-col gap-8">
+      
+      <!-- Hero Search Section -->
+      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#13141c] to-[#0f1016] border border-white/10 p-6 sm:p-10 shadow-2xl">
+        
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 text-xs font-mono text-[#c5a880] tracking-widest uppercase mb-3">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+            <span>多重感知哈希去重 · 10路高并发极速抓取 · 纯净属性分流</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-serif tracking-tight leading-tight">
+            输入角色名称，一键收集 <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#c5a880] to-[#ff5c8a]">高赞无损原画</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2">
+            支持【全年龄 / R-18】精准属性设置（严格互斥隔离），按点赞量智能降序，自动跳过历史已下载图片。
+          </p>
+        </div>
+
+        <!-- Search Form -->
+        <div class="mt-6 flex flex-col gap-3">
+          <div class="flex flex-col sm:flex-row items-stretch gap-3">
+            <div class="relative flex-1">
+              <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+              <input 
+                type="text" 
+                id="search-input"
+                placeholder="请输入动漫角色名称，例如：初音未来、雷电将军、芙宁娜、爱蜜莉雅、圣园未花..."
+                class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-[#14151e] border border-white/10 focus:border-[#c5a880] focus:ring-1 focus:ring-[#c5a880] text-white text-sm outline-none transition-all placeholder:text-slate-500 font-sans shadow-inner"
+                onkeypress="if(event.key==='Enter') startSearch()"
+              />
+            </div>
+            
+            <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+              <!-- Rating Mode Switcher -->
+              <div class="flex items-center bg-[#14151e] border border-white/10 p-1 rounded-xl text-xs font-mono">
+                <button 
+                  type="button" 
+                  id="btn-rating-sfw" 
+                  onclick="setCrawlRating('sfw')" 
+                  class="px-3 py-2 rounded-lg font-bold flex items-center gap-1.5 transition-all text-[#c5a880] bg-[#c5a880]/15"
+                  title="全年龄模式：严格排除任何 R-18/NSFW 敏感内容"
+                >
+                  <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>全年龄</span>
+                </button>
+                <button 
+                  type="button" 
+                  id="btn-rating-r18" 
+                  onclick="setCrawlRating('r18')" 
+                  class="px-3 py-2 rounded-lg font-bold flex items-center gap-1.5 transition-all text-slate-400 hover:text-white"
+                  title="R-18 限制级模式：严格仅抓取 R-18 专属画作，排除全年龄"
+                >
+                  <i data-lucide="flame" class="w-3.5 h-3.5 text-pink-400"></i>
+                  <span>R-18</span>
+                </button>
+              </div>
+
+              <!-- Quantity Selector & Custom Input -->
+              <div class="flex items-center bg-[#14151e] border border-white/10 p-1 rounded-xl text-xs font-mono">
+                <select 
+                  id="search-limit" 
+                  onchange="onSearchLimitChange(this.value)" 
+                  class="bg-[#14151e] text-white font-mono px-3 py-2 outline-none cursor-pointer rounded-lg"
+                >
+                  <option value="10" class="bg-[#14151e] text-white">10 张原画</option>
+                  <option value="20" class="bg-[#14151e] text-white">20 张原画</option>
+                  <option value="30" class="bg-[#14151e] text-white">30 张原画</option>
+                  <option value="50" class="bg-[#14151e] text-white" selected>50 张原画</option>
+                  <option value="100" class="bg-[#14151e] text-white">100 张原画</option>
+                  <option value="custom" class="bg-[#14151e] text-white">自定义数量...</option>
+                </select>
+                <div id="search-custom-limit-wrap" class="hidden items-center pl-1 pr-2">
+                  <input 
+                    type="number" 
+                    id="search-custom-limit" 
+                    min="1" 
+                    max="300" 
+                    value="20" 
+                    placeholder="数量" 
+                    class="w-16 px-2 py-1.5 rounded-lg bg-black/60 border border-[#c5a880]/50 text-white font-mono text-xs outline-none text-center font-bold" 
+                  />
+                  <span class="text-slate-400 text-xs ml-1 font-mono">张</span>
+                </div>
+              </div>
+
+              <button 
+                onclick="startSearch()" 
+                id="btn-start-search"
+                class="px-6 py-3.5 rounded-xl bg-white hover:bg-[#c5a880] text-black font-display font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 whitespace-nowrap cursor-pointer"
+              >
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>开始收集</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Hot Character Recommendation Chips -->
+          <div class="flex items-center gap-2 flex-wrap pt-2">
+            <span class="text-[11px] font-mono text-slate-500">热门推荐：</span>
+            <button onclick="fillSearch('初音未来')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">初音未来</button>
+            <button onclick="fillSearch('雷电将军')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">雷电将军</button>
+            <button onclick="fillSearch('芙宁娜')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">芙宁娜</button>
+            <button onclick="fillSearch('爱蜜莉雅')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">爱蜜莉雅</button>
+            <button onclick="fillSearch('圣园未花')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">圣园未花</button>
+            <button onclick="fillSearch('喜多川海梦')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">喜多川海梦</button>
+            <button onclick="fillSearch('时崎狂三')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">时崎狂三</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Tasks Workbench & History -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <i data-lucide="activity" class="w-4 h-4 text-[#c5a880]"></i>
+            <h3 class="text-sm font-bold font-mono tracking-wider text-slate-200 uppercase">当前任务与最近活动</h3>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="clearAllFinishedTasks()" class="text-xs font-mono text-slate-500 hover:text-red-400 flex items-center gap-1 transition-all" title="清空已完成的历史任务卡片">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> 清理记录
+            </button>
+            <button onclick="loadRecentTasks()" class="text-xs font-mono text-slate-400 hover:text-white flex items-center gap-1 transition-all">
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> 刷新
+            </button>
+          </div>
+        </div>
+
+        <div id="tasks-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Live task items rendered via JS -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         VIEW 2: 角色详情与图片筛选工作台 (CHARACTER WORKBENCH VIEW)
+         ==================================================================== -->
+    <section id="view-character" class="spa-view hidden flex flex-col gap-6">
+      
+      <!-- Character Quick Navigation Pills Ribbon -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none" id="char-nav-ribbon">
+        <!-- Injected dynamically: Pills for each character in library -->
+      </div>
+
+      <!-- Character Header Banner -->
+      <div class="rounded-2xl bg-gradient-to-r from-[#13141c] via-[#101118] to-[#13141c] border border-white/10 p-5 sm:p-7 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+        <div class="flex items-center gap-4">
+          <button onclick="navigate('characters')" class="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-all" title="返回角色库">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+          </button>
+          <div>
+            <div class="flex items-center gap-3 flex-wrap">
+              <h2 id="gallery-char-title" class="text-2xl sm:text-3xl font-extrabold text-white font-serif">--</h2>
+              <span id="gallery-char-badge" class="px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-[#c5a880]/15 text-[#c5a880] border border-[#c5a880]/30">待筛选工作台</span>
+            </div>
+            <div class="text-xs text-slate-400 mt-2 flex items-center gap-4 flex-wrap font-mono">
+              <span>候选待选：<strong id="gallery-count-candidates" class="text-white">0</strong> 张</span>
+              <span>已永久收藏：<strong id="gallery-count-favorites" class="text-emerald-400 font-bold">0</strong> 张</span>
+              <span class="text-slate-500">🛡️ 零重复增量翻页</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side Actions -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <!-- Rating selector for increment fetch -->
+          <div class="flex items-center bg-[#14151e] border border-white/10 p-1 rounded-xl text-xs font-mono">
+            <button 
+              type="button" 
+              id="btn-char-rating-sfw" 
+              onclick="setCharWorkbenchRating('sfw')" 
+              class="px-2.5 py-1.5 rounded-lg font-bold flex items-center gap-1 transition-all text-[#c5a880] bg-[#c5a880]/15"
+              title="全年龄模式"
+            >
+              <i data-lucide="shield-check" class="w-3 h-3 text-emerald-400"></i> 全年龄
+            </button>
+            <button 
+              type="button" 
+              id="btn-char-rating-r18" 
+              onclick="setCharWorkbenchRating('r18')" 
+              class="px-2.5 py-1.5 rounded-lg font-bold flex items-center gap-1 transition-all text-slate-400 hover:text-white"
+              title="R-18 限制级模式"
+            >
+              <i data-lucide="flame" class="w-3 h-3 text-pink-400"></i> R-18
+            </button>
+          </div>
+
+          <!-- Quantity Selector & Custom Input -->
+          <div class="flex items-center bg-[#14151e] border border-white/10 p-1 rounded-xl text-xs font-mono">
+            <select 
+              id="top-batch-limit" 
+              onchange="onBatchLimitChange(this.value, 'top')" 
+              class="bg-[#14151e] text-white font-mono px-2 py-1.5 outline-none cursor-pointer rounded-lg"
+            >
+              <option value="10" class="bg-[#14151e] text-white">10 张</option>
+              <option value="20" class="bg-[#14151e] text-white">20 张</option>
+              <option value="30" class="bg-[#14151e] text-white">30 张</option>
+              <option value="50" class="bg-[#14151e] text-white" selected>50 张</option>
+              <option value="100" class="bg-[#14151e] text-white">100 张</option>
+              <option value="custom" class="bg-[#14151e] text-white">自定义...</option>
+            </select>
+            <div id="top-custom-limit-wrap" class="hidden items-center pl-1 pr-1.5">
+              <input 
+                type="number" 
+                id="top-custom-limit" 
+                min="1" 
+                max="300" 
+                value="20" 
+                onchange="syncCustomBatchLimit(this.value, 'top')"
+                oninput="syncCustomBatchLimit(this.value, 'top')"
+                class="w-14 px-1.5 py-1 rounded-md bg-black/70 border border-[#c5a880]/50 text-white font-mono text-xs outline-none text-center font-bold" 
+              />
+              <span class="text-slate-400 text-xs ml-1 font-mono">张</span>
+            </div>
+          </div>
+
+          <button onclick="triggerFetchNextBatch()" id="btn-fetch-next" class="px-4 py-2.5 rounded-xl bg-[#c5a880]/15 hover:bg-[#c5a880] text-[#c5a880] hover:text-black border border-[#c5a880]/40 text-xs font-mono font-bold flex items-center gap-2 transition-all active:scale-95 shadow-md">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i> <span id="top-btn-fetch-text">抓取下一批</span>
+          </button>
+          <button onclick="openCleanupModal()" class="px-4 py-2.5 rounded-xl bg-red-500/15 hover:bg-red-500/25 border border-red-500/30 text-red-400 text-xs font-mono font-bold flex items-center gap-1.5 transition-all active:scale-95" title="清空临时待选图片，永久保留已收藏图片">
+            <i data-lucide="trash-2" class="w-4 h-4"></i> 清理临时图片
+          </button>
+        </div>
+      </div>
+
+      <!-- Controls & Layout Switcher Toolbar (Static at top of page, does NOT block images when scrolling) -->
+      <div class="bg-[#13141c] border border-white/10 p-3 sm:p-4 rounded-2xl flex flex-wrap items-center justify-between gap-3 shadow-md">
+        
+        <!-- Left: Quick Select Controls -->
+        <div class="flex items-center gap-2 flex-wrap font-mono text-xs">
+          <button onclick="selectAllImages(true)" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 flex items-center gap-1.5 transition-all">
+            <i data-lucide="check-square" class="w-3.5 h-3.5 text-[#c5a880]"></i> 全选
+          </button>
+          <button onclick="selectAllImages(false)" class="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 flex items-center gap-1.5 transition-all">
+            <i data-lucide="square" class="w-3.5 h-3.5"></i> 取消
+          </button>
+        </div>
+
+        <!-- Center: Status & Rating Filters -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/5 text-xs font-mono">
+            <button onclick="filterGalleryStatus('all', this)" class="gallery-tab-btn active px-3 py-1.5 rounded-lg font-semibold text-white bg-white/10">全部 (<span id="tab-cnt-all">0</span>)</button>
+            <button onclick="filterGalleryStatus('pending', this)" class="gallery-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">待选 (<span id="tab-cnt-pending">0</span>)</button>
+            <button onclick="filterGalleryStatus('saved', this)" class="gallery-tab-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white">已收藏 (<span id="tab-cnt-saved">0</span>)</button>
+          </div>
+
+          <div class="flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/5 text-xs font-mono">
+            <button onclick="filterGalleryRating('all', this)" class="gallery-rating-filter-btn active px-2.5 py-1.5 rounded-lg font-semibold text-white bg-white/10">全部属性</button>
+            <button onclick="filterGalleryRating('sfw', this)" class="gallery-rating-filter-btn px-2.5 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white flex items-center gap-1"><i data-lucide="shield-check" class="w-3 h-3 text-emerald-400"></i> 全年龄</button>
+            <button onclick="filterGalleryRating('r18', this)" class="gallery-rating-filter-btn px-2.5 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white flex items-center gap-1"><i data-lucide="flame" class="w-3 h-3 text-pink-400"></i> R-18</button>
+          </div>
+        </div>
+
+        <!-- Right: Layout Switcher (单列大图 / 双列 / 网格) -->
+        <div class="flex items-center gap-1 bg-black/40 p-1 rounded-xl border border-white/10 text-xs font-mono">
+          <button onclick="setLayoutMode('single')" id="btn-layout-single" class="px-3 py-1.5 rounded-lg font-semibold text-[#c5a880] bg-[#c5a880]/15 flex items-center gap-1.5 transition-all" title="单列沉浸大图流 (强烈推荐)">
+            <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+            <span>单列大图</span>
+          </button>
+          <button onclick="setLayoutMode('2col')" id="btn-layout-2col" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1 transition-all" title="双列大图">
+            <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+            <span>双列</span>
+          </button>
+          <button onclick="setLayoutMode('masonry')" id="btn-layout-masonry" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1 transition-all" title="多列瀑布流">
+            <i data-lucide="grid" class="w-3.5 h-3.5"></i>
+            <span>网格</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Batch Fast Switcher Jump Ribbon (Auto-populated when 2+ batches exist) -->
+      <div id="batch-switcher-bar" class="hidden flex items-center justify-between gap-3 px-4 py-2 rounded-2xl bg-[#13141c]/90 border border-white/10 backdrop-blur-md shadow-sm">
+        <div class="flex items-center gap-2 text-xs font-mono text-slate-400 shrink-0">
+          <i data-lucide="layers" class="w-3.5 h-3.5 text-[#c5a880]"></i>
+          <span>批次速览:</span>
+        </div>
+        <div id="batch-nav-pills-container" class="batch-switcher-container">
+          <!-- Injected dynamically via JS: [ 🏷️ 第 1 批 (50) ] [ 🏷️ 第 2 批 (50) ] ... -->
+        </div>
+      </div>
+
+      <!-- Main Image Feed Container (Dynamic Layout: single / 2col / masonry) -->
+      <div id="gallery-feed-container" class="single-feed-container">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Bottom Next Batch Action Card (Browsing down to bottom) -->
+      <div id="bottom-next-batch-container" class="mt-8 mb-12 flex flex-col items-center justify-center gap-4 p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#13141c]/90 to-[#090a0f] border border-[#c5a880]/30 shadow-2xl backdrop-blur-xl">
+        <div class="flex items-center gap-2 text-[#c5a880] font-mono text-xs font-semibold">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span>已浏览到底部？继续抓取下一批新插画</span>
+        </div>
+        <div class="flex items-center gap-3 flex-wrap justify-center">
+          <div class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/10 font-mono text-xs text-slate-300">
+            <span class="text-slate-400">单批数量:</span>
+            <select 
+              id="next-batch-limit" 
+              onchange="onBatchLimitChange(this.value, 'bottom')"
+              class="bg-[#14151e] text-white font-bold outline-none cursor-pointer rounded-lg px-2 py-1"
+            >
+              <option value="10" class="bg-[#14151e] text-white">10 张</option>
+              <option value="20" class="bg-[#14151e] text-white">20 张</option>
+              <option value="30" class="bg-[#14151e] text-white">30 张</option>
+              <option value="50" class="bg-[#14151e] text-white" selected>50 张</option>
+              <option value="100" class="bg-[#14151e] text-white">100 张</option>
+              <option value="custom" class="bg-[#14151e] text-white">自定义...</option>
+            </select>
+            <div id="bottom-custom-limit-wrap" class="hidden items-center pl-1">
+              <input 
+                type="number" 
+                id="bottom-custom-limit" 
+                min="1" 
+                max="300" 
+                value="20" 
+                onchange="syncCustomBatchLimit(this.value, 'bottom')"
+                oninput="syncCustomBatchLimit(this.value, 'bottom')"
+                class="w-16 px-2 py-1 rounded-lg bg-black/80 border border-[#c5a880]/60 text-white font-mono text-xs outline-none text-center font-bold" 
+              />
+              <span class="text-slate-400 text-xs ml-1 font-mono">张</span>
+            </div>
+          </div>
+          <button 
+            id="btn-bottom-fetch-next"
+            onclick="triggerFetchNextBatch()" 
+            class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#c5a880] via-[#e4ccad] to-[#c5a880] hover:opacity-95 text-black font-display font-bold text-sm tracking-wider uppercase transition-all shadow-[0_0_30px_rgba(197,168,128,0.25)] hover:scale-105 active:scale-95 flex items-center gap-2.5"
+          >
+            <i data-lucide="download-cloud" class="w-5 h-5"></i>
+            <span>⚡ 抓取下一批新原画</span>
+          </button>
+        </div>
+        <p class="text-[11px] text-slate-500 font-mono text-center">
+          ✓ 自动接续下一页码 · 全量感知哈希去重 · 绝无重复图片
+        </p>
+      </div>
+
+      <!-- Empty State -->
+      <div id="gallery-empty-state" class="hidden py-24 text-center flex flex-col items-center justify-center">
+        <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 text-slate-500">
+          <i data-lucide="image-off" class="w-8 h-8"></i>
+        </div>
+        <h4 class="text-base font-bold text-white font-serif">暂无符合条件的图片</h4>
+        <p class="text-xs text-slate-400 mt-1">您可以点击下方【抓取下一批新原画】检索最新高清插画</p>
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         VIEW 3: 角色库 (CHARACTERS LIBRARY VIEW)
+         ==================================================================== -->
+    <section id="view-characters" class="spa-view hidden flex flex-col gap-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-serif font-extrabold text-white">已收录动漫角色</h2>
+          <p class="text-xs text-slate-400 mt-1">点击任意角色卡片，进入专属原画筛选工作台</p>
+        </div>
+      </div>
+
+      <div id="characters-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <!-- Characters loaded via JS -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 4: 永久收藏夹 (FAVORITES VIEW)
+         ==================================================================== -->
+    <section id="view-favorites" class="spa-view hidden flex flex-col gap-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-serif font-extrabold text-white">❤️ 永久收藏精选集</h2>
+          <p class="text-xs text-slate-400 mt-1">
+            存储于 <code class="text-[#c5a880] font-mono">/data/anime-gallery/favorites/</code>（绝对安全隔离，不受任何清理影响）
+          </p>
+        </div>
+      </div>
+
+      <!-- Favorites Layout & Export Actions Toolbar -->
+      <div class="flex items-center justify-between gap-3 flex-wrap text-xs font-mono">
+        <div class="flex items-center gap-2">
+          <a href="/gallery/api/storage/export-zip" download="anime_favorites_all.zip" class="px-4 py-2 rounded-xl bg-[#c5a880]/15 hover:bg-[#c5a880] text-[#c5a880] hover:text-black border border-[#c5a880]/40 font-bold flex items-center gap-2 transition-all shadow-md" title="打包下载整个 favorites 目录下的所有按角色归类原画">
+            <i data-lucide="archive" class="w-4 h-4"></i>
+            <span>打包下载所有收藏 (ZIP)</span>
+          </a>
+        </div>
+
+        <div class="flex items-center gap-1 bg-black/40 p-1 rounded-xl border border-white/10">
+          <button onclick="setFavLayoutMode('single')" id="btn-fav-layout-single" class="px-3 py-1.5 rounded-lg font-semibold text-[#c5a880] bg-[#c5a880]/15 flex items-center gap-1.5">
+            <i data-lucide="smartphone" class="w-3.5 h-3.5"></i> 单列大图
+          </button>
+          <button onclick="setFavLayoutMode('masonry')" id="btn-fav-layout-masonry" class="px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5">
+            <i data-lucide="grid" class="w-3.5 h-3.5"></i> 网格
+          </button>
+        </div>
+      </div>
+
+      <div id="favorites-feed-container" class="single-feed-container">
+        <!-- Favorites rendered via JS -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 5: 设置与授权 (SETTINGS VIEW)
+         ==================================================================== -->
+    <section id="view-settings" class="spa-view hidden flex flex-col gap-6 max-w-3xl mx-auto w-full">
+      <div class="border-b border-white/10 pb-4">
+        <h2 class="text-2xl font-serif font-extrabold text-white">系统设置与官方 API 凭据</h2>
+        <p class="text-xs text-slate-400 mt-1">管理 Pixiv 官方 OAuth Token、Google Photos 预留及数据源开关</p>
+      </div>
+
+      <!-- Settings Cards -->
+      <div class="flex flex-col gap-5">
+        
+        <!-- Default Rating Mode Setting -->
+        <div class="p-5 rounded-2xl bg-[#13141c] border border-white/10 flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="sliders" class="w-5 h-5 text-[#c5a880]"></i>
+            <h4 class="text-sm font-bold text-white">默认抓取图片属性 (全年龄 SFW / R-18 互斥隔离)</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            选择新建收集任务时的默认属性模式（两种模式严格互斥，全年龄绝不包含 R-18，R-18 绝不包含全年龄）：
+          </p>
+          <div class="flex items-center gap-6 text-xs font-mono pt-1">
+            <label class="flex items-center gap-2.5 cursor-pointer text-slate-300">
+              <input type="radio" name="setting-crawl-rating" value="sfw" id="setting-rating-sfw" class="w-4 h-4 accent-emerald-400 cursor-pointer" checked>
+              <span class="flex items-center gap-1 text-emerald-400 font-bold"><i data-lucide="shield-check" class="w-4 h-4"></i> 全年龄 SFW (无 R-18)</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer text-slate-300">
+              <input type="radio" name="setting-crawl-rating" value="r18" id="setting-rating-r18" class="w-4 h-4 accent-pink-500 cursor-pointer">
+              <span class="flex items-center gap-1 text-pink-400 font-bold"><i data-lucide="flame" class="w-4 h-4"></i> R-18 限制级 (无全年龄)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Pixiv Official OAuth -->
+        <div class="p-5 rounded-2xl bg-[#13141c] border border-white/10 flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="key" class="w-5 h-5 text-[#00a2ff]"></i>
+            <h4 class="text-sm font-bold text-white">Pixiv 官方用户授权 (Refresh Token)</h4>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            如需直接调用 Pixiv App API 获取原作者、作品 ID 和高清大图，请在此填入合法授权的 OAuth Refresh Token。
+          </p>
+          <input 
+            type="password" 
+            id="setting-pixiv-token" 
+            placeholder="填入 Pixiv OAuth Refresh Token..." 
+            class="px-4 py-2.5 rounded-xl bg-[#090a0f] border border-white/10 text-white text-xs font-mono outline-none focus:border-[#00a2ff]"
+          />
+        </div>
+
+        <!-- Google Photos Official Cloud Sync -->
+        <div class="p-5 rounded-2xl bg-[#13141c] border border-white/10 flex flex-col gap-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i data-lucide="cloud" class="w-5 h-5 text-emerald-400"></i>
+              <h4 class="text-sm font-bold text-white">Google Photos 官方相册云端全自动同步</h4>
+            </div>
+            <span id="gp-auth-status" class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-white/5 text-slate-400 border border-white/10">未连接</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            填入 Google Cloud 凭据后，点击【一键授权连接】即可完成绑定。系统将自动按角色名称（如「初音未来」、「白洲梓」）创建 Google Photos 相册并无损上传收藏原画。
+          </p>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">Google Client ID (客户端 ID)</label>
+              <input type="text" id="setting-gp-client-id" placeholder="xxxx.apps.googleusercontent.com" class="w-full px-4 py-2.5 rounded-xl bg-[#090a0f] border border-white/10 text-white text-xs font-mono outline-none focus:border-emerald-400"/>
+            </div>
+            <div>
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">Google Client Secret (客户端密钥)</label>
+              <input type="password" id="setting-gp-client-secret" placeholder="GOCSPX-xxxx" class="w-full px-4 py-2.5 rounded-xl bg-[#090a0f] border border-white/10 text-white text-xs font-mono outline-none focus:border-emerald-400"/>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-mono text-slate-400 mb-1">Google OAuth Refresh Token (授权后自动获取)</label>
+            <input type="password" id="setting-gp-refresh-token" placeholder="授权连接后系统将自动填充..." class="w-full px-4 py-2.5 rounded-xl bg-[#090a0f] border border-white/10 text-white text-xs font-mono outline-none focus:border-emerald-400"/>
+          </div>
+
+          <div class="flex items-center gap-3 pt-2 flex-wrap font-mono text-xs">
+            <button onclick="connectGoogleOAuth()" type="button" class="px-4 py-2.5 rounded-xl bg-white hover:bg-emerald-400 text-black font-bold flex items-center gap-2 transition-all shadow-md">
+              <i data-lucide="link" class="w-4 h-4"></i>
+              <span>🔗 一键授权连接 Google 账号</span>
+            </button>
+            <button onclick="triggerGooglePhotosSync()" type="button" class="px-4 py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 font-bold flex items-center gap-2 transition-all">
+              <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+              <span>⚡ 一键全量同步到 Google 相册</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Access Mode Control & One-Click Magic Link -->
+        <div class="p-5 rounded-2xl bg-[#13141c] border border-[#c5a880]/30 flex flex-col gap-4 shadow-xl">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i>
+              <h4 class="text-sm font-bold text-white">🔒 访问权限模式 & 全网 404 隐形控制</h4>
+            </div>
+            <span id="setting-auth-status-badge" class="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">公开访问已放开</span>
+          </div>
+
+          <!-- Mode Radio Switcher -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-xl bg-black/40 border border-white/5 font-mono text-xs">
+            <label class="flex items-center gap-2.5 p-2 rounded-lg cursor-pointer hover:bg-white/5 transition-all text-slate-300">
+              <input type="radio" name="setting-private-auth" value="false" id="setting-auth-public" class="w-4 h-4 accent-emerald-400 cursor-pointer" onchange="toggleAuthModeUI(false)">
+              <div>
+                <div class="font-bold text-emerald-400 flex items-center gap-1.5"><i data-lucide="globe" class="w-4 h-4"></i> 全网公开访问 (允许他人访问)</div>
+                <div class="text-[11px] text-slate-400 font-sans">任何访客无需密钥即可直接浏览与使用画廊</div>
+              </div>
+            </label>
+            <label class="flex items-center gap-2.5 p-2 rounded-lg cursor-pointer hover:bg-white/5 transition-all text-slate-300">
+              <input type="radio" name="setting-private-auth" value="true" id="setting-auth-private" class="w-4 h-4 accent-pink-500 cursor-pointer" onchange="toggleAuthModeUI(true)">
+              <div>
+                <div class="font-bold text-[#c5a880] flex items-center gap-1.5"><i data-lucide="lock" class="w-4 h-4"></i> 404 隐形防护 (仅限授权设备)</div>
+                <div class="text-[11px] text-slate-400 font-sans">未授权陌生访客返回标准 404，彻底隐藏</div>
+              </div>
+            </label>
+          </div>
+
+          <p class="text-xs text-slate-400 leading-relaxed" id="auth-mode-desc">
+            • <b>当前模式</b>：全网公开访问已生效，其他人可直接通过常规链接访问画廊。<br>
+            • <b>随时切换</b>：如需重新独占，切换为【404 隐形防护】并保存即可。
+          </p>
+
+          <!-- Golden Magic Link Box -->
+          <div class="p-4 rounded-xl bg-gradient-to-r from-[#c5a880]/15 to-[#090a0f] border border-[#c5a880]/40 flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-[#c5a880] flex items-center gap-1.5">
+                <i data-lucide="key" class="w-4 h-4"></i> 您的专属一键授权激活链接
+              </span>
+              <span class="text-[10px] font-mono text-slate-400">10 年免密有效</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <input 
+                type="text" 
+                id="setting-magic-url" 
+                readonly 
+                value="加载中..." 
+                class="flex-1 px-3.5 py-2.5 rounded-lg bg-black/60 border border-white/10 text-[#c5a880] text-xs font-mono select-all outline-none"
+              />
+              <button 
+                onclick="copyMagicLink()" 
+                type="button" 
+                class="px-4 py-2.5 rounded-lg bg-[#c5a880] hover:bg-[#e4ccad] text-black font-bold text-xs font-mono flex items-center gap-1.5 transition-all shadow-md shrink-0"
+              >
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i> 复制链接
+              </button>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono">
+              <span>💡 请在手机/电脑分别打开一次上述链接即可永久绑定</span>
+              <button onclick="resetMagicLink()" type="button" class="text-slate-400 hover:text-red-300 underline flex items-center gap-1">
+                <i data-lucide="refresh-cw" class="w-3 h-3"></i> 重置生成新链接
+              </button>
+            </div>
+          </div>
+
+          <!-- Authorized Devices List -->
+          <div class="p-4 rounded-xl bg-[#090a0f] border border-white/10 flex flex-col gap-3">
+            <div class="text-xs font-bold text-slate-300 flex items-center justify-between">
+              <span>📱 已绑定专属设备 (<span id="auth-devices-count">0</span> 台)</span>
+              <button onclick="loadAuthorizedDevices()" type="button" class="text-[11px] text-slate-400 hover:text-white flex items-center gap-1">
+                <i data-lucide="refresh-cw" class="w-3 h-3"></i> 刷新
+              </button>
+            </div>
+            <div id="auth-devices-list" class="flex flex-col gap-2">
+              <div class="text-xs text-slate-500 py-2">加载中...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Storage Path Info -->
+        <div class="p-5 rounded-2xl bg-[#13141c] border border-white/10 flex flex-col gap-2 font-mono text-xs text-slate-300">
+          <div class="text-slate-400 font-sans font-bold text-sm mb-1">🗂️ 本地数据分层存储状态</div>
+          <div>• 待筛选候选区：<span class="text-[#c5a880]">/data/anime-gallery/temp/</span></div>
+          <div>• 永久收藏目录：<span class="text-emerald-400">/data/anime-gallery/favorites/</span> (绝对保护)</div>
+          <div>• 缩略图缓存区：<span class="text-slate-400">/data/anime-gallery/cache/</span></div>
+          <div>• 数据库存储路径：<span class="text-slate-400">/data/anime-gallery/db/gallery.sqlite3</span></div>
+        </div>
+
+        <button onclick="saveSettings()" class="py-3.5 rounded-xl bg-[#c5a880] hover:bg-[#e4ccad] text-black font-display font-bold text-xs uppercase tracking-wider transition-all">
+          保存所有设置
+        </button>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====================================================================
+       CLEANUP CONFIRMATION MODAL (严格保护收藏目录的清理确认弹窗)
+       ==================================================================== -->
+  <div id="cleanup-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="max-w-md w-full rounded-2xl bg-[#13141c] border border-red-500/30 p-6 flex flex-col gap-4 shadow-2xl animate-in zoom-in-95 duration-150">
+      <div class="flex items-center gap-3 text-red-400">
+        <div class="w-10 h-10 rounded-xl bg-red-500/20 flex items-center justify-center">
+          <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white font-serif">确认清理临时待选文件？</h3>
+          <p class="text-xs text-slate-400">此操作将释放服务器磁盘空间</p>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 text-xs text-slate-300 flex flex-col gap-2">
+        <p class="text-red-300 font-semibold">⚠️ 将清空该角色的：</p>
+        <p class="font-mono text-slate-400">• /data/anime-gallery/temp/<span id="modal-char-name">--</span>/* (临时候选图)</p>
+        <p class="font-mono text-slate-400">• /data/anime-gallery/cache/<span id="modal-char-name-2">--</span>/* (缩略图缓存)</p>
+        <div class="mt-2 pt-2 border-t border-white/10 text-emerald-400 font-semibold flex items-center gap-1.5">
+          <i data-lucide="shield-check" class="w-4 h-4"></i>
+          <span>【安全承诺】：已收藏的图片 100% 永久保留！</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 mt-2">
+        <button onclick="closeCleanupModal()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs text-slate-300 transition-all font-mono">
+          取消
+        </button>
+        <button onclick="confirmCleanup()" id="btn-confirm-cleanup" class="px-4 py-2 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-xs transition-all font-mono shadow-lg shadow-red-500/25">
+          确认清理
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       FULLSCREEN HIGH-RES LIGHTBOX VIEWER (全屏高清大图查看器)
+       ==================================================================== -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl hidden flex-col justify-between p-4 sm:p-6 select-none">
+    
+    <!-- Top Header Bar -->
+    <div class="flex items-center justify-between z-10">
+      <div class="flex items-center gap-3">
+        <span id="lb-index-badge" class="px-2.5 py-1 rounded-lg bg-[#c5a880]/20 text-[#c5a880] border border-[#c5a880]/30 text-xs font-mono font-bold">#001</span>
+        <div>
+          <h4 id="lb-title" class="text-sm font-bold text-white truncate max-w-xs sm:max-w-md font-serif">Title</h4>
+          <p id="lb-author" class="text-[11px] text-slate-400 font-mono">Artist</p>
+        </div>
+      </div>
+
+      <!-- Top Actions -->
+      <div class="flex items-center gap-2">
+        <button id="lb-btn-save" onclick="lbToggleFavorite()" class="px-3 py-1.5 rounded-lg bg-[#c5a880] hover:bg-[#e4ccad] text-black text-xs font-bold font-mono flex items-center gap-1.5 shadow-md transition-all">
+          <i data-lucide="heart" class="w-4 h-4 fill-black"></i> <span id="lb-save-text">保存 (S)</span>
+        </button>
+        <a id="lb-btn-download" href="#" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-bold font-mono flex items-center gap-1.5 border border-white/15 transition-all" title="下载 100% 原始无损超清大图到本地">
+          <i data-lucide="download" class="w-4 h-4"></i> <span>下载原画</span>
+        </a>
+        <button onclick="lbDeleteCurrent()" class="p-2 rounded-lg bg-white/10 hover:bg-red-500/20 hover:text-red-400 text-slate-300 transition-all" title="删除临时图片 (Delete)">
+          <i data-lucide="trash-2" class="w-4 h-4"></i>
+        </button>
+        <a id="lb-source-link" href="#" target="_blank" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 transition-all" title="查看原始来源 (Pixiv等)">
+          <i data-lucide="external-link" class="w-4 h-4"></i>
+        </a>
+        <button onclick="closeLightbox()" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 transition-all ml-2" title="关闭 (Esc)">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Image Display -->
+    <div class="relative flex-1 flex items-center justify-center my-4 overflow-hidden">
+      <button onclick="lbPrev()" class="absolute left-2 sm:left-6 p-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-md z-10" title="上一张 (←)">
+        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+      </button>
+
+      <img id="lb-img" src="" alt="" class="max-h-[82vh] max-w-[92vw] object-contain rounded-xl shadow-2xl transition-all duration-150">
+
+      <button onclick="lbNext()" class="absolute right-2 sm:right-6 p-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-md z-10" title="下一张 (→)">
+        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Lightbox Bottom Info Bar -->
+    <div class="flex items-center justify-between text-xs text-slate-400 font-mono z-10">
+      <div class="flex items-center gap-3">
+        <span id="lb-res">1920 x 1080</span>
+        <span id="lb-size">2.4 MB</span>
+        <span id="lb-source-badge" class="px-2 py-0.5 rounded bg-[#c5a880]/15 text-[#c5a880] border border-[#c5a880]/30 font-sans">Pixiv</span>
+      </div>
+      <div class="hidden sm:flex items-center gap-4 text-[11px] text-slate-500 font-sans">
+        <span>快捷键：← 上一张 · → 下一张 · S 收藏 · Delete 删除 · Esc 关闭</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Floating Batch Action Bar (Appears only when 1+ images are checked) -->
+  <div id="floating-batch-bar" class="fixed bottom-20 md:bottom-8 left-1/2 -translate-x-1/2 z-40 bg-[#13141c]/95 backdrop-blur-2xl border border-[#c5a880]/50 px-5 py-2.5 rounded-full shadow-2xl hidden items-center gap-3 text-xs font-mono animate-in fade-in slide-in-from-bottom-5 duration-200">
+    <span id="floating-selected-count" class="font-bold text-[#c5a880] font-mono whitespace-nowrap">已选 0 张</span>
+    <div class="h-4 w-px bg-white/20"></div>
+    <button onclick="batchSaveSelected()" class="px-3.5 py-1.5 rounded-full bg-[#c5a880] hover:bg-[#e4ccad] text-black font-bold flex items-center gap-1.5 transition-all shadow-md whitespace-nowrap">
+      <i data-lucide="heart" class="w-3.5 h-3.5 fill-black"></i> 批量收藏
+    </button>
+    <button onclick="batchDeleteSelected()" class="px-3.5 py-1.5 rounded-full bg-red-500/20 hover:bg-red-500/30 text-red-300 font-semibold flex items-center gap-1.5 transition-all whitespace-nowrap">
+      <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> 批量删除
+    </button>
+    <button onclick="selectAllImages(false)" class="p-1 rounded-full bg-white/10 hover:bg-white/20 text-slate-400 hover:text-white transition-all ml-1" title="取消选择">
+      <i data-lucide="x" class="w-3.5 h-3.5"></i>
+    </button>
+  </div>
+
+
+
+  <!-- ====================================================================
+       FLOATING ACTION CLUSTER (FAB DOCK) - MATCHING USER SCREENSHOT
+       ==================================================================== -->
+  <div id="gallery-floating-cluster" class="fixed right-4 sm:right-6 bottom-20 md:bottom-8 z-40 flex flex-col items-end gap-2.5 select-none transition-all duration-300">
+    
+    <!-- 1. Main Capsule Trigger Button: + 抓取下批 [🍀 全年龄] [20] -->
+    <button 
+      id="fab-fetch-next-btn"
+      onclick="triggerFetchNextBatch()" 
+      class="group px-4 py-2 rounded-full bg-gradient-to-r from-[#2c221a] via-[#1b1d28] to-[#12141e] border border-[#c5a880]/60 hover:border-[#c5a880] shadow-[0_10px_30px_rgba(0,0,0,0.85)] hover:shadow-[0_0_25px_rgba(197,168,128,0.35)] flex items-center gap-2.5 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+      title="立即抓取下一批新原画"
+    >
+      <div class="flex items-center gap-1.5 font-sans font-bold text-sm text-[#e4ccad]">
+        <i data-lucide="plus" class="w-4 h-4 text-purple-400 group-hover:rotate-90 transition-transform"></i>
+        <span>抓取下批</span>
+      </div>
+      <span id="fab-rating-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[11px] font-mono font-bold flex items-center gap-1">
+        🍀 全年龄
+      </span>
+      <span id="fab-count-badge" class="px-2.5 py-0.5 rounded-full bg-black text-[#c5a880] text-xs font-mono font-black border border-white/10">
+        20
+      </span>
+    </button>
+
+    <!-- 2. Configuration Button: ⚙️ 配置 -->
+    <div class="relative group/tooltip flex items-center">
+      <div class="absolute right-full mr-2.5 px-2.5 py-1 rounded-lg bg-black/90 text-white text-[11px] font-mono whitespace-nowrap opacity-0 group-hover/tooltip:opacity-100 transition-opacity pointer-events-none border border-white/10 shadow-lg">
+        设置下批抓取数量及分级
+      </div>
+      <button 
+        onclick="openBatchConfigModal()" 
+        class="px-4 py-1.5 rounded-full bg-[#12141c]/90 hover:bg-[#1f2230] border border-[#c5a880]/40 hover:border-[#c5a880] text-slate-200 hover:text-white font-mono text-xs font-bold shadow-lg flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer backdrop-blur-md"
+        title="设置下批抓取参数"
+      >
+        <i data-lucide="settings" class="w-3.5 h-3.5 text-[#c5a880]"></i>
+        <span>配置</span>
+      </button>
+    </div>
+
+    <!-- 3. Direct Jump to Latest Batch Button: ⚡ 直达最新批 -->
+    <button 
+      onclick="scrollToLatestBatch()" 
+      class="px-4 py-1.5 rounded-full bg-[#0d1527]/90 hover:bg-[#16223d] border border-blue-500/30 hover:border-blue-400 text-blue-300 hover:text-white font-mono text-xs font-bold shadow-lg flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer backdrop-blur-md"
+      title="平滑滚动到最新抓取的批次"
+    >
+      <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+      <span>直达最新批</span>
+    </button>
+
+    <!-- 4. Back to Top Button: ↑ 回顶部 -->
+    <button 
+      onclick="scrollToPageTop()" 
+      class="px-4 py-1.5 rounded-full bg-[#12141c]/90 hover:bg-[#1f2230] border border-white/10 hover:border-white/30 text-slate-300 hover:text-white font-mono text-xs font-bold shadow-lg flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer backdrop-blur-md"
+      title="回到画廊顶部"
+    >
+      <i data-lucide="arrow-up" class="w-3.5 h-3.5 text-slate-400"></i>
+      <span>回顶部</span>
+    </button>
+  </div>
+
+  <!-- ====================================================================
+       MODAL: 下批抓取参数配置 (BATCH PARAMETER CONFIG MODAL)
+       ==================================================================== -->
+  <div id="modal-batch-config" class="batch-modal-backdrop hidden opacity-0" onclick="if(event.target === this) closeBatchConfigModal()">
+    <div class="batch-modal-card scale-95" id="modal-batch-config-card">
+      
+      <!-- Modal Header -->
+      <div class="batch-modal-header">
+        <div class="flex items-center gap-2 font-serif font-bold text-base text-white">
+          <i data-lucide="settings" class="w-4 h-4 text-[#c5a880]"></i>
+          <span>下批抓取参数配置</span>
+        </div>
+        <button onclick="closeBatchConfigModal()" class="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Section 1: 画作分级 (Artwork Rating) -->
+      <div class="flex flex-col gap-2">
+        <label class="text-xs text-slate-400 font-mono">画作分级</label>
+        <div class="batch-modal-rating-grid">
+          <button 
+            type="button"
+            id="cfg-rating-sfw"
+            onclick="setModalConfigRating('sfw')" 
+            class="batch-rating-pill-btn active-sfw"
+          >
+            <span>🍀 全年龄</span>
+          </button>
+          <button 
+            type="button"
+            id="cfg-rating-r18"
+            onclick="setModalConfigRating('r18')" 
+            class="batch-rating-pill-btn"
+          >
+            <span>🔞 R-18专区</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Section 2: 单批数量 (Batch Quantity) -->
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <label class="text-xs text-slate-400 font-mono">单批数量</label>
+          <span class="text-[11px] text-[#c5a880] font-mono" id="cfg-custom-hint">当前: <strong id="cfg-current-limit-val">20</strong> 张</span>
+        </div>
+        <div class="batch-modal-preset-grid">
+          <button type="button" onclick="setModalConfigLimit(20)" class="cfg-limit-btn active" data-limit="20">20</button>
+          <button type="button" onclick="setModalConfigLimit(50)" class="cfg-limit-btn" data-limit="50">50</button>
+          <button type="button" onclick="setModalConfigLimit(100)" class="cfg-limit-btn" data-limit="100">100</button>
+          <button type="button" onclick="setModalConfigLimit(150)" class="cfg-limit-btn" data-limit="150">150</button>
+          <button type="button" onclick="setModalConfigLimit(200)" class="cfg-limit-btn" data-limit="200">200</button>
+        </div>
+
+        <!-- Custom Input -->
+        <div class="mt-1 flex items-center gap-2 p-2.5 rounded-xl bg-black/50 border border-white/10 text-xs font-mono">
+          <span class="text-slate-400">自定义输入:</span>
+          <input 
+            type="number" 
+            id="cfg-modal-custom-input" 
+            min="1" 
+            max="300" 
+            placeholder="1-300" 
+            oninput="onModalCustomLimitInput(this.value)"
+            class="flex-1 px-2.5 py-1 rounded-lg bg-black/70 border border-white/15 text-white font-bold text-center outline-none focus:border-[#c5a880]"
+          />
+          <span class="text-slate-400">张</span>
+        </div>
+      </div>
+
+      <!-- Section 3: Bottom Full-Width Hero Button -->
+      <button 
+        id="cfg-modal-submit-btn"
+        type="button" 
+        onclick="confirmModalBatchFetch()" 
+        class="batch-modal-hero-btn"
+      >
+        <span>🚀 立即抓取下批（<strong id="cfg-submit-count">20</strong> 张 · <span id="cfg-submit-rating">🍀 全年龄</span>）</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Global Toast Notification -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Mobile Bottom Navigation Dock -->
+  <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-[#0f1016]/95 backdrop-blur-2xl border-t border-white/10 px-4 py-2 flex items-center justify-around text-[10px] font-semibold shadow-2xl" style="padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));">
+    <button onclick="navigate('home')" id="mob-nav-home" class="mob-nav-btn active flex flex-col items-center gap-1 text-[#c5a880]">
+      <i data-lucide="compass" class="w-5 h-5"></i>
+      <span>首页搜索</span>
+    </button>
+    <button onclick="navigate('characters')" id="mob-nav-characters" class="mob-nav-btn flex flex-col items-center gap-1 text-slate-400">
+      <i data-lucide="users" class="w-5 h-5"></i>
+      <span>角色库</span>
+    </button>
+    <button onclick="navigate('favorites')" id="mob-nav-favorites" class="mob-nav-btn flex flex-col items-center gap-1 text-slate-400">
+      <i data-lucide="heart" class="w-5 h-5"></i>
+      <span>收藏夹</span>
+    </button>
+    <button onclick="navigate('settings')" id="mob-nav-settings" class="mob-nav-btn flex flex-col items-center gap-1 text-slate-400">
+      <i data-lucide="settings" class="w-5 h-5"></i>
+      <span>设置</span>
+    </button>
+  </nav>
+
+  <!-- App Scripts -->
+  <script src="static/js/app.js?v=20260902_22"></script>
+</body>
+</html>

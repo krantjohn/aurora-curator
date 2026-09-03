@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  anime-gallery:
+    build: .
+    container_name: anime-gallery-manager
+    restart: unless-stopped
+    ports:
+      - "8088:8088"
+    environment:
+      - ANIME_DATA_DIR=/data/anime-gallery
+      - SERVER_HOST=0.0.0.0
+      - SERVER_PORT=8088
+    volumes:
+      - /data/anime-gallery:/data/anime-gallery
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8088/api/storage/stats"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

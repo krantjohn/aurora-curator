@@ -1,0 +1,65 @@
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+
+# Databases & SQLite
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+gallery.db
+
+# Storage Data Directories
+data/
+/data/
+storage/
+temp/
+favorites/
+cache/
+logs/
+*.log
+
+# IDE & Editor Configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Test & Coverage
+.coverage
+htmlcov/
+.pytest_cache/

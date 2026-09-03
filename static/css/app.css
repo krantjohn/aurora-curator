@@ -1,0 +1,638 @@
+/* ==========================================================================
+   AURORA & CURATOR STYLE SYSTEM - ANIME GALLERY MANAGER
+   ========================================================================== */
+
+:root {
+  --bg: #07070a;
+  --bg-surface: #0f1016;
+  --bg-card: #13141c;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.22);
+  --text-primary: #f5f5f7;
+  --text-secondary: #8e8e9f;
+  --text-muted: #525263;
+  --accent-rose: #ff5c8a;
+  --accent-gold: #c5a880;
+  --accent-gold-light: #e4ccad;
+  --accent-green: #10b981;
+  --accent-blue: #00a2ff;
+  --font-display: 'Syne', sans-serif;
+  --font-serif: 'Shippori Mincho', 'Cinzel', serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Background Noise & Radial Glow */
+.noise-bg {
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 0);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-sphere {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197, 168, 128, 0.06) 0%, transparent 70%);
+  top: -150px;
+  right: -100px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-sphere-2 {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 92, 138, 0.05) 0%, transparent 70%);
+  bottom: -100px;
+  left: -100px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================================================
+   FORM CONTROLS & DARK THEME SELECT FIX
+   ========================================================================== */
+html, body, select, input, textarea {
+  color-scheme: dark;
+}
+
+select {
+  color-scheme: dark;
+  background-color: #14151e;
+  color: #f5f5f7;
+}
+
+select option {
+  background-color: #14151e !important;
+  color: #f5f5f7 !important;
+  padding: 10px 14px;
+}
+
+select option:hover,
+select option:focus,
+select option:checked {
+  background-color: #c5a880 !important;
+  color: #000000 !important;
+}
+
+/* Navigation active tab */
+.nav-tab-btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.25s var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-tab-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.nav-tab-btn.active {
+  color: var(--accent-gold);
+  border-color: rgba(197, 168, 128, 0.4);
+  background: rgba(197, 168, 128, 0.08);
+}
+
+/* Single Column Card Feed */
+.single-feed-container {
+  max-width: 820px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.single-feed-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.single-feed-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.7);
+}
+
+.single-feed-card.is-fav {
+  border-color: rgba(197, 168, 128, 0.4) !important;
+  box-shadow: 0 0 25px rgba(197, 168, 128, 0.12);
+}
+
+.single-feed-card.selected {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
+/* Grid & Masonry Layouts */
+.grid-2col-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .grid-2col-container {
+    gap: 20px;
+  }
+}
+
+.masonry-container {
+  columns: 2;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .masonry-container {
+    columns: 3;
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .masonry-container {
+    columns: 4;
+    gap: 24px;
+  }
+}
+
+/* Custom Checkbox */
+.custom-checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.custom-checkbox.checked {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+}
+
+.custom-checkbox.checked::after {
+  content: "✓";
+  color: #000;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(7, 7, 10, 0.7);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+/* ==========================================================================
+   SLEEK CAPSULE BATCH DIVIDER & ISOLATED BATCH SECTIONS
+   ========================================================================== */
+.batch-group-section {
+  width: 100%;
+  position: relative;
+  display: block;
+}
+
+.batch-capsule-divider {
+  width: 100%;
+  scroll-margin-top: 100px;
+  margin: 64px 0 48px 0;
+  padding: 12px 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  z-index: 10;
+}
+
+/* 贯穿左右的超细发光水平线 */
+.batch-capsule-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 15%, rgba(197, 168, 128, 0.35) 50%, rgba(255, 255, 255, 0.08) 85%, transparent 100%);
+  z-index: 1;
+}
+
+/* 居中浮动圆角胶囊徽章 (Sleek Glassmorphic Pill Badge) */
+.batch-capsule-badge {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 24px;
+  border-radius: 9999px;
+  background: rgba(18, 20, 29, 0.94);
+  border: 1px solid rgba(197, 168, 128, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 168, 128, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  font-family: var(--font-mono);
+  color: #fff;
+  transition: all 0.3s var(--ease);
+}
+
+.batch-capsule-badge:hover {
+  border-color: rgba(197, 168, 128, 0.7);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 28px rgba(197, 168, 128, 0.25);
+  transform: translateY(-1px);
+}
+
+.batch-capsule-divider.highlight-new-batch .batch-capsule-badge {
+  animation: capsuleLaserPulse 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes capsuleLaserPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(197, 168, 128, 0.9), 0 0 50px rgba(197, 168, 128, 0.8);
+    border-color: #fff;
+    transform: scale(1.04);
+  }
+  30% {
+    box-shadow: 0 0 0 14px rgba(197, 168, 128, 0), 0 0 35px rgba(197, 168, 128, 0.4);
+    border-color: #c5a880;
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 168, 128, 0.12);
+    border-color: rgba(197, 168, 128, 0.35);
+    transform: scale(1);
+  }
+}
+
+/* Image Layout Canvas Enhancements */
+.image-canvas-frame {
+  background: radial-gradient(circle at center, #171926 0%, #08090f 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.85);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+}
+
+.single-feed-card {
+  background: linear-gradient(180deg, #131520 0%, #0d0e15 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.7);
+  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.single-feed-card:hover {
+  border-color: rgba(197, 168, 128, 0.4);
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(197, 168, 128, 0.08);
+}
+
+.single-feed-card.is-fav {
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.12);
+}
+
+.single-feed-card.selected {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
+/* Batch Quick Pill Button on Divider */
+.batch-select-btn {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.batch-select-btn:hover {
+  background: rgba(197, 168, 128, 0.2);
+  border-color: rgba(197, 168, 128, 0.5);
+  color: #fff;
+}
+
+/* Batch Quick Jump Switcher Bar */
+.batch-switcher-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px 0;
+}
+
+.batch-switcher-container::-webkit-scrollbar {
+  display: none;
+}
+
+.batch-nav-pill {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.batch-nav-pill:hover {
+  background: rgba(197, 168, 128, 0.15);
+  border-color: rgba(197, 168, 128, 0.35);
+  color: #fff;
+}
+
+.batch-nav-pill.active {
+  background: rgba(197, 168, 128, 0.25);
+  border-color: #c5a880;
+  color: #c5a880;
+  box-shadow: 0 0 15px rgba(197, 168, 128, 0.2);
+}
+
+/* Floating Next Batch FAB Cluster */
+#gallery-floating-cluster {
+  position: fixed;
+  right: 18px;
+  bottom: 82px;
+  z-index: 45;
+}
+
+@media (min-width: 768px) {
+  #gallery-floating-cluster {
+    right: 28px;
+    bottom: 32px;
+  }
+}
+
+/* View & Modal Scoped Hidden Overrides */
+.spa-view.hidden,
+#modal-batch-config.hidden,
+#cleanup-modal.hidden,
+#lightbox-modal.hidden,
+.batch-modal-backdrop.hidden {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* ==========================================================================
+   ELEGANT COMPACT BATCH CONFIG MODAL (PIXEL PERFECT & RESPONSIVE)
+   ========================================================================== */
+.batch-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  transition: opacity 0.2s ease;
+}
+
+.batch-modal-card {
+  width: 100%;
+  max-width: 420px;
+  background: #12141e;
+  border: 1px solid rgba(197, 168, 128, 0.35);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(197, 168, 128, 0.15);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #fff;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.batch-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 14px;
+}
+
+.batch-modal-rating-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.batch-rating-pill-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+}
+
+.batch-rating-pill-btn:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.batch-rating-pill-btn.active-sfw {
+  background: rgba(16, 185, 129, 0.18) !important;
+  border-color: #10b981 !important;
+  color: #6ee7b7 !important;
+  box-shadow: 0 0 18px rgba(16, 185, 129, 0.25);
+}
+
+.batch-rating-pill-btn.active-r18 {
+  background: rgba(244, 63, 94, 0.18) !important;
+  border-color: #f43f5e !important;
+  color: #fda4af !important;
+  box-shadow: 0 0 18px rgba(244, 63, 94, 0.25);
+}
+
+.batch-modal-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.cfg-limit-btn {
+  padding: 9px 0;
+  text-align: center;
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cfg-limit-btn:hover {
+  border-color: rgba(197, 168, 128, 0.5);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cfg-limit-btn.active {
+  background: rgba(197, 168, 128, 0.25) !important;
+  border-color: #c5a880 !important;
+  color: #e4ccad !important;
+  box-shadow: 0 0 15px rgba(197, 168, 128, 0.35);
+}
+
+.batch-modal-hero-btn {
+  width: 100%;
+  padding: 14px 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #e4ccad 0%, #c5a880 100%) !important;
+  color: #0c0d13 !important;
+  font-weight: 900;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 10px 25px rgba(197, 168, 128, 0.35);
+  transition: all 0.2s ease;
+  margin-top: 4px;
+}
+
+.batch-modal-hero-btn:hover {
+  background: linear-gradient(135deg, #f3dfc8 0%, #d8be97 100%) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(197, 168, 128, 0.5);
+}
+
+.batch-modal-hero-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS & TOUCH OPTIMIZATIONS
+   ========================================================================== */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, input, select {
+  touch-action: manipulation;
+}
+
+/* Mobile Bottom Safe Area */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  #mobile-bottom-nav {
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 640px) {
+  .batch-capsule-divider {
+    margin: 36px 0 24px 0;
+    padding: 6px 0;
+  }
+
+  .batch-capsule-badge {
+    padding: 6px 14px;
+    gap: 8px;
+    font-size: 11px;
+    max-width: calc(100% - 20px);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  #gallery-floating-cluster {
+    right: 12px;
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    gap: 8px;
+  }
+
+  #fab-fetch-next-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .batch-modal-card {
+    padding: 18px 14px;
+    max-width: calc(100% - 24px);
+    border-radius: 20px;
+  }
+
+  .batch-modal-preset-grid {
+    gap: 6px;
+  }
+
+  .cfg-limit-btn {
+    padding: 7px 0;
+    font-size: 12px;
+  }
+
+  .single-feed-card {
+    border-radius: 12px;
+  }
+}
