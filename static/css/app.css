@@ -727,3 +727,186 @@ button, a, input, select {
   transform: scale(0.96);
 }
 
+/* ==========================================================================
+   CHARACTERS LIBRARY ADAPTIVE MASONRY LAYOUT
+   ========================================================================== */
+.characters-masonry {
+  column-count: 2;
+  column-gap: 16px;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .characters-masonry {
+    column-count: 3;
+    column-gap: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .characters-masonry {
+    column-count: 4;
+    column-gap: 20px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .characters-masonry {
+    column-count: 5;
+    column-gap: 22px;
+  }
+}
+
+.character-card-masonry {
+  break-inside: avoid;
+  margin-bottom: 20px;
+  display: inline-block;
+  width: 100%;
+  background: #13141c;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.character-card-masonry:hover {
+  border-color: rgba(197, 168, 128, 0.5);
+  box-shadow: 0 12px 32px rgba(197, 168, 128, 0.15);
+}
+
+.character-cover-wrap {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #090a0f;
+  position: relative;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6);
+}
+
+.character-cover-img {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s var(--ease);
+}
+
+.character-card-masonry:hover .character-cover-img {
+  transform: scale(1.03);
+}
+
+/* ==========================================================================
+   SIDE FLOATING GAME ENTRANCE DOCK
+   ========================================================================== */
+#game-side-dock {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 8px 10px 10px;
+  background: rgba(13, 14, 21, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: -8px 12px 36px rgba(0, 0, 0, 0.65);
+  transition: all 0.3s var(--ease);
+}
+
+.game-dock-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  transition: all 0.2s var(--ease);
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.game-dock-btn-ba {
+  background: rgba(14, 165, 233, 0.12);
+  color: #38bdf8;
+  border-color: rgba(14, 165, 233, 0.3);
+}
+.game-dock-btn-ba:hover {
+  background: rgba(14, 165, 233, 0.25);
+  border-color: #38bdf8;
+  color: #ffffff;
+  transform: translateX(-4px);
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.4);
+}
+
+.game-dock-btn-ww {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+.game-dock-btn-ww:hover {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: #f59e0b;
+  color: #ffffff;
+  transform: translateX(-4px);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+}
+
+.game-dock-btn-endfield {
+  background: rgba(234, 179, 8, 0.14);
+  color: #facc15;
+  border-color: rgba(234, 179, 8, 0.35);
+}
+.game-dock-btn-endfield:hover {
+  background: rgba(234, 179, 8, 0.28);
+  border-color: #facc15;
+  color: #ffffff;
+  transform: translateX(-4px);
+  box-shadow: 0 4px 16px rgba(234, 179, 8, 0.4);
+}
+
+/* Full Game Roster Modal */
+.game-roster-modal-card {
+  background: #0f1016;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+  width: 95%;
+  max-width: 900px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+  transition: all 0.25s var(--ease);
+}
+
+.roster-char-item {
+  background: #14151f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+
+.roster-char-item:hover {
+  border-color: rgba(197, 168, 128, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+

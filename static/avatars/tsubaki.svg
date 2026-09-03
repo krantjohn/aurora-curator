@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg_tsubaki" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070f26"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="accent_tsubaki" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e11d48"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Card Background -->
+  <rect width="200" height="200" rx="24" fill="url(#bg_tsubaki)" />
+  <rect width="198" height="198" x="1" y="1" rx="23" fill="none" stroke="#e11d48" stroke-width="1.5" opacity="0.35" />
+  
+  <!-- Subtle Grid Pattern -->
+  <circle cx="100" cy="100" r="52" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.06" />
+  
+  <!-- Game Themed Graphic -->
+  
+        <ellipse cx="100" cy="42" rx="36" ry="8" fill="none" stroke="#e11d48" stroke-width="3" opacity="0.9" filter="url(#glow)"/>
+        <circle cx="100" cy="42" r="2" fill="#fff"/>
+        
+  
+  <!-- Character Center Avatar Orb -->
+  <circle cx="100" cy="100" r="42" fill="#0b0f19" stroke="#e11d48" stroke-width="2" />
+  <text x="100" y="109" font-family="'Cinzel', 'Shippori Mincho', 'Noto Serif SC', 'PingFang SC', sans-serif" font-weight="bold" font-size="22" fill="url(#accent_tsubaki)" text-anchor="middle" letter-spacing="1">春日</text>
+  
+  <!-- Top Game Badge -->
+  <rect x="25" y="12" width="150" height="18" rx="9" fill="rgba(56, 189, 248, 0.2)" stroke="rgba(56, 189, 248, 0.4)" stroke-width="0.8" />
+  <text x="100" y="24.5" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="700" fill="#e11d48" text-anchor="middle" letter-spacing="1.5">BLUE ARCHIVE</text>
+  
+  <!-- Bottom Character Full Name -->
+  <text x="100" y="165" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">春日椿</text>
+</svg>

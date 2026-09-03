@@ -41,7 +41,19 @@ class TaskManager:
             current_page = row["current_page"] or 1
             conn.execute("UPDATE characters SET last_searched_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP WHERE id = ?", (char_id,))
         else:
-            cur = conn.execute("INSERT INTO characters (name, slug, current_page, last_searched_at) VALUES (?, ?, 1, CURRENT_TIMESTAMP)", (clean_name, slug))
+            game = "other"
+            aliases = None
+            try:
+                from services.character_catalog import CHARACTER_CATALOG
+                import json
+                for c in CHARACTER_CATALOG:
+                    if c["name"] == clean_name or clean_name in c.get("aliases", []):
+                        game = c["game"]
+                        aliases = json.dumps(c.get("aliases", []), ensure_ascii=False)
+                        break
+            except Exception:
+                pass
+            cur = conn.execute("INSERT INTO characters (name, slug, game, aliases, current_page, last_searched_at) VALUES (?, ?, ?, ?, 1, CURRENT_TIMESTAMP)", (clean_name, slug, game, aliases))
             char_id = cur.lastrowid
             current_page = 1
         conn.commit()

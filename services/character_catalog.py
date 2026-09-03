@@ -666,5 +666,311 @@ CHARACTER_CATALOG: List[Dict[str, Any]] = [
         "pixiv_tag": "フィオナ(エンドフィールド)",
         "aliases": ["菲奥娜(终末地)"],
         "accent_color": "#14b8a6"
+    },
+    # =========================================================================
+    # 鸣潮 (Wuthering Waves) 补充角色
+    # =========================================================================
+    {
+        "name": "渊武",
+        "slug": "yuanwu",
+        "game": "wuthering_waves",
+        "game_name": "鸣潮",
+        "booru_tags": ["yuanwu_(wuthering_waves)", "yuanwu"],
+        "pixiv_tag": "淵武",
+        "aliases": ["大叔", "拳师"],
+        "accent_color": "#a855f7"
+    },
+    {
+        "name": "莫特斐",
+        "slug": "mortefi",
+        "game": "wuthering_waves",
+        "game_name": "鸣潮",
+        "booru_tags": ["mortefi_(wuthering_waves)", "mortefi"],
+        "pixiv_tag": "モルテフィ",
+        "aliases": ["火枪", "莫特斐"],
+        "accent_color": "#ef4444"
+    },
+    {
+        "name": "釉瑚",
+        "slug": "youhu",
+        "game": "wuthering_waves",
+        "game_name": "鸣潮",
+        "booru_tags": ["youhu_(wuthering_waves)", "youhu"],
+        "pixiv_tag": "釉瑚",
+        "aliases": ["釉瑚", "鉴宝萝莉"],
+        "accent_color": "#06b6d4"
+    },
+    {
+        "name": "布兰特",
+        "slug": "brant",
+        "game": "wuthering_waves",
+        "game_name": "鸣潮",
+        "booru_tags": ["brant_(wuthering_waves)", "brant"],
+        "pixiv_tag": "ブラント",
+        "aliases": ["布兰特"],
+        "accent_color": "#f59e0b"
+    },
+    {
+        "name": "菲比",
+        "slug": "phoebe",
+        "game": "wuthering_waves",
+        "game_name": "鸣潮",
+        "booru_tags": ["phoebe_(wuthering_waves)", "phoebe"],
+        "pixiv_tag": "フィービー",
+        "aliases": ["菲比"],
+        "accent_color": "#ec4899"
+    },
+    # =========================================================================
+    # 蔚蓝档案 (Blue Archive) 深度补充全量人气角色
+    # =========================================================================
+    {
+        "name": "枣伊吕波",
+        "slug": "iroha",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["natsume_iroha", "iroha_(blue_archive)"],
+        "pixiv_tag": "棗イロハ",
+        "aliases": ["伊吕波", "イロハ", "168", "虎丸车长"],
+        "accent_color": "#ef4444"
+    },
+    {
+        "name": "狐坂若藻",
+        "slug": "wakamo",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["kosaka_wakamo", "wakamo_(blue_archive)"],
+        "pixiv_tag": "狐坂ワカモ",
+        "aliases": ["若藻", "ワカモ", "狐狸", "灾厄之狐"],
+        "accent_color": "#dc2626"
+    },
+    {
+        "name": "才羽桃井",
+        "slug": "momoi",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["saiba_momoi", "momoi_(blue_archive)"],
+        "pixiv_tag": "才羽モモイ",
+        "aliases": ["桃井", "モモイ", "粉毛小春"],
+        "accent_color": "#f97316"
+    },
+    {
+        "name": "才羽绿",
+        "slug": "midori",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["saiba_midori", "midori_(blue_archive)"],
+        "pixiv_tag": "才羽ミドリ",
+        "aliases": ["绿", "ミドリ", "小绿"],
+        "accent_color": "#22c55e"
+    },
+    {
+        "name": "花冈柚子",
+        "slug": "yuzu",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["hanaoka_yuzu", "yuzu_(blue_archive)"],
+        "pixiv_tag": "花岡ユズ",
+        "aliases": ["柚子", "ユズ", "柜子柚子"],
+        "accent_color": "#eab308"
+    },
+    {
+        "name": "美甘宁瑠",
+        "slug": "neru",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["mikamo_neru", "neru_(blue_archive)"],
+        "pixiv_tag": "美甘ネル",
+        "aliases": ["宁瑠", "ネル", "双枪暴躁", "兔女郎宁瑠"],
+        "accent_color": "#e11d48"
+    },
+    {
+        "name": "室笠朱音",
+        "slug": "akane",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["murokasa_akane", "akane_(blue_archive)"],
+        "pixiv_tag": "室笠アカネ",
+        "aliases": ["朱音", "アカネ", "扫除女仆"],
+        "accent_color": "#eab308"
+    },
+    {
+        "name": "阿慈谷日富美",
+        "slug": "hifumi",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["ajitani_hifumi", "hifumi_(blue_archive)"],
+        "pixiv_tag": "阿慈谷ヒフミ",
+        "aliases": ["日富美", "ヒフミ", "浮士德", "佩洛洛"],
+        "accent_color": "#eab308"
+    },
+    {
+        "name": "剑先鹤城",
+        "slug": "tsurugi",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["kenzaki_tsurugi", "tsurugi_(blue_archive)"],
+        "pixiv_tag": "剣先ツルギ",
+        "aliases": ["鹤城", "ツルギ", "正义实现委员会会长"],
+        "accent_color": "#991b1b"
+    },
+    {
+        "name": "月雪宫子",
+        "slug": "miyako",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["tsukiyuki_miyako", "miyako_(blue_archive)"],
+        "pixiv_tag": "月雪ミヤコ",
+        "aliases": ["宫子", "ミヤコ", "兔小队队长"],
+        "accent_color": "#0ea5e9"
+    },
+    {
+        "name": "空井咲",
+        "slug": "saki",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["sorai_saki", "saki_(blue_archive)"],
+        "pixiv_tag": "空井サキ",
+        "aliases": ["咲", "サキ", "头盔咲"],
+        "accent_color": "#64748b"
+    },
+    {
+        "name": "风仓萌绘",
+        "slug": "moe",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["kazekura_moe", "moe_(blue_archive)"],
+        "pixiv_tag": "風倉モエ",
+        "aliases": ["萌绘", "モエ", "迫击炮萌绘"],
+        "accent_color": "#f59e0b"
+    },
+    {
+        "name": "近卫美奈",
+        "slug": "mina",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["konoe_mina", "mina_(blue_archive)"],
+        "pixiv_tag": "近衛ミナ",
+        "aliases": ["美奈", "玄龙门执行官"],
+        "accent_color": "#0284c7"
+    },
+    {
+        "name": "漆原琉美",
+        "slug": "rumi",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["urushibara_rumi", "rumi_(blue_archive)"],
+        "pixiv_tag": "漆原ルミ",
+        "aliases": ["琉美", "ルミ", "炒饭姐"],
+        "accent_color": "#f97316"
+    },
+    {
+        "name": "春日椿",
+        "slug": "tsubaki",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["kasuga_tsubaki", "tsubaki_(blue_archive)"],
+        "pixiv_tag": "春日ツバキ",
+        "aliases": ["椿", "ツバキ", "睡眠盾"],
+        "accent_color": "#e11d48"
+    },
+    {
+        "name": "久田泉奈",
+        "slug": "izuna",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["kuda_izuna", "izuna_(blue_archive)"],
+        "pixiv_tag": "久田イズナ",
+        "aliases": ["泉奈", "イズナ", "小狐狸", "忍忍"],
+        "accent_color": "#ec4899"
+    },
+    {
+        "name": "苍森美祢",
+        "slug": "mine",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["aomori_mine", "mine_(blue_archive)"],
+        "pixiv_tag": "蒼森ミネ",
+        "aliases": ["美祢", "ミネ", "救护骑士团团长"],
+        "accent_color": "#38bdf8"
+    },
+    {
+        "name": "若叶日向",
+        "slug": "hinata",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["wakaba_hinata", "hinata_(blue_archive)"],
+        "pixiv_tag": "若葉ヒナタ",
+        "aliases": ["日向", "ヒナタ", "修女日向"],
+        "accent_color": "#60a5fa"
+    },
+    {
+        "name": "黑崎小雪",
+        "slug": "koyuki",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["kurosaki_koyuki", "koyuki_(blue_archive)"],
+        "pixiv_tag": "黒崎コユキ",
+        "aliases": ["小雪", "コユキ", "哈哈哈", "恶作剧小雪"],
+        "accent_color": "#f472b6"
+    },
+    {
+        "name": "火宫风香",
+        "slug": "fuuka",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["aikiyo_fuuka", "fuuka_(blue_archive)"],
+        "pixiv_tag": "愛清フウカ",
+        "aliases": ["风香", "フウカ", "苦劳人主厨"],
+        "accent_color": "#10b981"
+    },
+    {
+        "name": "鳄渊亚伽里",
+        "slug": "akari",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["wanibuchi_akari", "akari_(blue_archive)"],
+        "pixiv_tag": "鰐渕アカリ",
+        "aliases": ["亚伽里", "大胃王"],
+        "accent_color": "#ec4899"
+    },
+    {
+        "name": "尾刃神奈",
+        "slug": "kanna",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["ogata_kanna", "kanna_(blue_archive)"],
+        "pixiv_tag": "尾刃カンナ",
+        "aliases": ["神奈", "カンナ", "狂犬神奈", "局长"],
+        "accent_color": "#64748b"
+    },
+    {
+        "name": "戒野美咲",
+        "slug": "misaki",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["imashino_misaki", "misaki_(blue_archive)"],
+        "pixiv_tag": "戒野ミサキ",
+        "aliases": ["美咲", "ミサキ", "火箭筒美咲"],
+        "accent_color": "#6b7280"
+    },
+    {
+        "name": "狮子堂泉",
+        "slug": "izumi",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["shishidou_izumi", "izumi_(blue_archive)"],
+        "pixiv_tag": "獅子堂イズミ",
+        "aliases": ["泉", "イズミ", "汉堡泉"],
+        "accent_color": "#f59e0b"
+    },
+    {
+        "name": "静山真白",
+        "slug": "mashiro",
+        "game": "blue_archive",
+        "game_name": "蔚蓝档案",
+        "booru_tags": ["shizuyama_mashiro", "mashiro_(blue_archive)"],
+        "pixiv_tag": "静山マシロ",
+        "aliases": ["真白", "マシロ", "狙击真白"],
+        "accent_color": "#64748b"
     }
 ]

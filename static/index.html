@@ -462,10 +462,10 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div class="flex items-center gap-2">
-            <h2 class="text-2xl font-serif font-extrabold text-white">角色图鉴与一键抓取</h2>
-            <span id="char-total-count-badge" class="px-2.5 py-0.5 rounded-full bg-[#c5a880]/15 text-[#c5a880] border border-[#c5a880]/30 text-xs font-mono font-bold">已收录 65+ 角色</span>
+            <h2 class="text-2xl font-serif font-extrabold text-white">已抓取角色图鉴</h2>
+            <span id="char-total-count-badge" class="px-2.5 py-0.5 rounded-full bg-[#c5a880]/15 text-[#c5a880] border border-[#c5a880]/30 text-xs font-mono font-bold">已收集 0 角色</span>
           </div>
-          <p class="text-xs text-slate-400 mt-1">点击角色头像或卡片即可一键发起高质量原画抓取，支持数量与全年龄/R-18属性自定义</p>
+          <p class="text-xs text-slate-400 mt-1">仅收录已实际抓取过原画的角色，封面卡片自动按原画画幅比例无损自适应呈现</p>
         </div>
 
         <!-- In-Library Filter & Search -->
@@ -475,9 +475,9 @@
             <input 
               type="text" 
               id="char-search-input" 
-              placeholder="搜索角色名、别名或拼音..." 
+              placeholder="在已收录角色中搜索..." 
               oninput="filterCharactersByKeyword(this.value)"
-              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#14151e] border border-white/10 text-xs text-white placeholder:text-slate-500 outline-none focus:border-[#c5a880] transition-colors"
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#14151e] border border-white/10 text-xs text-white placeholder:text-slate-500 outline-none focus:border-[#c5a880] transition-colors font-sans"
             />
           </div>
         </div>
@@ -486,7 +486,7 @@
       <!-- Game Category Filter Bar -->
       <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-mono scrollbar-none">
         <button onclick="setGameCategoryFilter('all')" id="game-tab-all" class="game-tab-btn active">
-          <span>🌟 全部角色 (<span id="count-all">0</span>)</span>
+          <span>🌟 全部 (<span id="count-all">0</span>)</span>
         </button>
         <button onclick="setGameCategoryFilter('blue_archive')" id="game-tab-blue_archive" class="game-tab-btn">
           <span class="w-2 h-2 rounded-full bg-sky-400 inline-block"></span>
@@ -502,9 +502,9 @@
         </button>
       </div>
 
-      <!-- Characters Grid -->
-      <div id="characters-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-        <!-- Characters loaded via JS -->
+      <!-- Characters Adaptive Masonry Grid -->
+      <div id="characters-grid" class="characters-masonry">
+        <!-- Characters loaded via JS with adaptive height -->
       </div>
     </section>
 
@@ -1104,6 +1104,78 @@
         </button>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       SIDE FLOATING ENTRANCE DOCK (三大游戏专属侧边快捷入口)
+       ==================================================================== -->
+  <aside id="game-side-dock" aria-label="三大游戏专属速抓入口">
+    <div class="text-[9px] font-mono font-extrabold text-[#c5a880] text-center uppercase tracking-wider pb-1 border-b border-white/10 select-none">
+      游戏专区
+    </div>
+    <button onclick="openGameRosterModal('wuthering_waves')" class="game-dock-btn game-dock-btn-ww" title="鸣潮 (Wuthering Waves) 全量角色图鉴">
+      <span class="w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+      <span>⚡ 鸣潮</span>
+    </button>
+    <button onclick="openGameRosterModal('blue_archive')" class="game-dock-btn game-dock-btn-ba" title="蔚蓝档案 (Blue Archive) 全量角色图鉴">
+      <span class="w-2 h-2 rounded-full bg-sky-400 shrink-0"></span>
+      <span>💙 蔚蓝档案</span>
+    </button>
+    <button onclick="openGameRosterModal('endfield')" class="game-dock-btn game-dock-btn-endfield" title="明日方舟：终末地 全量角色图鉴">
+      <span class="w-2 h-2 rounded-full bg-yellow-400 shrink-0"></span>
+      <span>🔶 终末地</span>
+    </button>
+  </aside>
+
+  <!-- ====================================================================
+       MODAL: 游戏全量角色图鉴速抓弹窗 (GAME ROSTER SELECTOR MODAL)
+       ==================================================================== -->
+  <div id="modal-game-roster" class="batch-modal-backdrop hidden opacity-0" onclick="if(event.target === this) closeGameRosterModal()">
+    <div class="game-roster-modal-card scale-95" id="modal-game-roster-card">
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-white/10 flex items-center justify-between bg-black/40">
+        <div class="flex items-center gap-3">
+          <div id="roster-game-icon" class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center font-bold text-amber-400 text-lg shadow-inner">
+            ⚡
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h3 id="roster-modal-title" class="text-base sm:text-lg font-serif font-bold text-white">鸣潮 · 全量角色原画速抓</h3>
+              <span id="roster-total-badge" class="px-2.5 py-0.5 rounded-full bg-white/10 text-[#c5a880] border border-[#c5a880]/30 text-xs font-mono font-bold">25 位角色</span>
+            </div>
+            <p class="text-xs text-slate-400 font-mono mt-0.5">点击任意角色可立即一键配置抓取，已收录的角色可直接进入画廊工作台</p>
+          </div>
+        </div>
+        <button onclick="closeGameRosterModal()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Search & Game Quick Switcher -->
+      <div class="p-3 sm:p-4 border-b border-white/10 bg-[#12131b] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-1.5 overflow-x-auto text-xs font-mono scrollbar-none">
+          <button onclick="switchRosterGame('wuthering_waves')" id="roster-tab-ww" class="game-tab-btn">⚡ 鸣潮</button>
+          <button onclick="switchRosterGame('blue_archive')" id="roster-tab-ba" class="game-tab-btn">💙 蔚蓝档案</button>
+          <button onclick="switchRosterGame('endfield')" id="roster-tab-endfield" class="game-tab-btn">🔶 终末地</button>
+        </div>
+        
+        <div class="relative w-full sm:w-64">
+          <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+          <input 
+            type="text" 
+            id="roster-search-input" 
+            placeholder="搜索当前游戏角色名或别名..." 
+            oninput="filterRosterCharacters(this.value)"
+            class="w-full pl-10 pr-4 py-2 rounded-xl bg-black/60 border border-white/10 text-xs text-white placeholder:text-slate-500 outline-none focus:border-[#c5a880] font-sans transition-colors"
+          />
+        </div>
+      </div>
+
+      <!-- Characters Grid in Modal -->
+      <div class="p-4 sm:p-5 overflow-y-auto max-h-[62vh] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5" id="roster-chars-grid">
+        <!-- Loaded via JS -->
+      </div>
     </div>
   </div>
 

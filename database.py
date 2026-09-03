@@ -171,14 +171,35 @@ def init_db():
         cursor.execute("INSERT OR IGNORE INTO settings (key, value, description) VALUES (?, ?, ?)", (k, v, desc))
 
     conn.commit()
-    seed_characters(conn)
+    cleanup_empty_characters(conn)
+    sync_crawled_characters_metadata(conn)
     conn.close()
     logger.info("Database initialized successfully.")
 
-def seed_characters(conn=None):
+def cleanup_empty_characters(conn=None):
     """
-    Seed or update predefined characters from CHARACTER_CATALOG for
-    Blue Archive, Wuthering Waves, and Arknights: Endfield.
+    Ensures that only characters that have actually been crawled (with at least 1 image)
+    are present in the active characters database. Purges empty dummy characters.
+    """
+    close_after = False
+    if conn is None:
+        conn = get_connection()
+        close_after = True
+
+    cursor = conn.cursor()
+    cursor.execute("""
+        DELETE FROM characters 
+        WHERE (SELECT COUNT(*) FROM images WHERE character_id = characters.id) = 0
+    """)
+    conn.commit()
+    if close_after:
+        conn.close()
+    logger.info("Cleaned up un-crawled empty characters from library.")
+
+def sync_crawled_characters_metadata(conn=None):
+    """
+    Syncs game and aliases metadata for crawled characters from CHARACTER_CATALOG,
+    and ensures cover avatar uses the actual downloaded artwork thumbnail.
     """
     close_after = False
     if conn is None:
@@ -187,41 +208,49 @@ def seed_characters(conn=None):
 
     try:
         from services.character_catalog import CHARACTER_CATALOG
+        catalog_map = {c["name"]: c for c in CHARACTER_CATALOG}
     except Exception as e:
         logger.warning(f"Could not import CHARACTER_CATALOG: {e}")
-        return
+        catalog_map = {}
 
     cursor = conn.cursor()
-    for item in CHARACTER_CATALOG:
-        name = item["name"]
-        slug = item["slug"]
-        game = item["game"]
-        aliases_json = json.dumps(item.get("aliases", []), ensure_ascii=False)
-        default_avatar = f"/static/avatars/{slug}.svg"
+    rows = cursor.execute("""
+        SELECT c.id, c.name, c.avatar_url, c.game,
+               (SELECT thumbnail_path FROM images WHERE character_id = c.id AND thumbnail_path IS NOT NULL ORDER BY status = 'saved' DESC, id DESC LIMIT 1) as cover_thumb
+        FROM characters c
+        WHERE (SELECT COUNT(*) FROM images WHERE character_id = c.id) > 0
+    """).fetchall()
 
-        existing = cursor.execute("SELECT id, avatar_url, game, aliases FROM characters WHERE name = ?", (name,)).fetchone()
-        if existing:
-            cur_avatar = existing["avatar_url"]
-            if not cur_avatar or cur_avatar.endswith(".svg"):
-                new_avatar = default_avatar
-            else:
-                new_avatar = cur_avatar
+    for r in rows:
+        cid = r["id"]
+        cname = r["name"]
+        item = catalog_map.get(cname)
+        game = item["game"] if item else (r["game"] or "other")
+        aliases = json.dumps(item.get("aliases", []), ensure_ascii=False) if item else None
+        
+        cur_avatar = r["avatar_url"]
+        cover_thumb = r["cover_thumb"]
+        new_avatar = cur_avatar
+        if (not cur_avatar or cur_avatar.endswith(".svg")) and cover_thumb:
+            new_avatar = cover_thumb
 
-            cursor.execute("""
-                UPDATE characters 
-                SET slug = ?, game = ?, aliases = ?, avatar_url = ?
-                WHERE id = ?
-            """, (slug, game, aliases_json, new_avatar, existing["id"]))
-        else:
-            cursor.execute("""
-                INSERT OR IGNORE INTO characters (name, slug, game, aliases, avatar_url, current_page)
-                VALUES (?, ?, ?, ?, ?, 1)
-            """, (name, slug, game, aliases_json, default_avatar))
+        cursor.execute("""
+            UPDATE characters 
+            SET game = COALESCE(?, game), 
+                aliases = COALESCE(?, aliases), 
+                avatar_url = COALESCE(?, avatar_url) 
+            WHERE id = ?
+        """, (game, aliases, new_avatar, cid))
 
     conn.commit()
     if close_after:
         conn.close()
-    logger.info("Character seed completed successfully.")
+    logger.info("Synced metadata for crawled characters.")
+
+def seed_characters(conn=None):
+    """Legacy helper maintained for backward compatibility."""
+    cleanup_empty_characters(conn)
+    sync_crawled_characters_metadata(conn)
 
 if __name__ == "__main__":
     init_db()

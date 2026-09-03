@@ -473,7 +473,10 @@ const AppState = {
   characterKeyword: '',
   quickCrawlTarget: null,
   quickCrawlRating: localStorage.getItem('aurora_qc_rating') || 'sfw',
-  quickCrawlLimit: parseInt(localStorage.getItem('aurora_qc_limit'), 10) || 50
+  quickCrawlLimit: parseInt(localStorage.getItem('aurora_qc_limit'), 10) || 50,
+  rosterGame: 'wuthering_waves',
+  rosterCatalog: [],
+  rosterKeyword: ''
 };
 
 // Rating Mode Switchers
@@ -1784,9 +1787,26 @@ function renderFilteredCharacters() {
 
   if (list.length === 0) {
     grid.innerHTML = `
-      <div class="col-span-full py-16 text-center text-slate-500 font-mono text-xs flex flex-col items-center gap-3">
-        <i data-lucide="inbox" class="w-8 h-8 text-slate-600"></i>
-        <span>没有找到符合条件的角色</span>
+      <div class="col-span-full py-20 text-center text-slate-400 font-mono text-xs flex flex-col items-center gap-3">
+        <div class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#c5a880] text-2xl mb-1 shadow-inner">
+          🎨
+        </div>
+        <h4 class="text-white font-serif font-bold text-base">角色库暂无已抓取角色</h4>
+        <p class="text-slate-400 max-w-md leading-relaxed text-xs">
+          系统已切换为纯净模式：仅收录您实际抓取过原画的角色。<br>
+          请点击右侧【游戏专区】或在首页搜索任意角色发起抓取，下载后将自动在此处展示！
+        </p>
+        <div class="flex items-center gap-2 mt-2 flex-wrap justify-center">
+          <button onclick="openGameRosterModal('wuthering_waves')" class="px-3.5 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 text-xs font-bold transition-all shadow-md active:scale-95">
+            ⚡ 挑选鸣潮角色
+          </button>
+          <button onclick="openGameRosterModal('blue_archive')" class="px-3.5 py-2 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 text-xs font-bold transition-all shadow-md active:scale-95">
+            💙 挑选蔚蓝档案角色
+          </button>
+          <button onclick="openGameRosterModal('endfield')" class="px-3.5 py-2 rounded-xl bg-yellow-500/15 hover:bg-yellow-500/25 text-yellow-300 border border-yellow-500/30 text-xs font-bold transition-all shadow-md active:scale-95">
+            🔶 挑选终末地角色
+          </button>
+        </div>
       </div>
     `;
     lucide.createIcons({ root: grid });
@@ -1800,17 +1820,17 @@ function renderFilteredCharacters() {
 
     return `
       <div 
-        onclick="openQuickCrawlModal('${c.name}', event)"
-        class="p-3.5 rounded-2xl bg-[#13141c] border border-white/10 hover:border-[#c5a880]/50 transition-all cursor-pointer group shadow-lg flex flex-col gap-3 relative hover:scale-[1.02]"
+        onclick="openCharacterGallery('${c.name}')"
+        class="character-card-masonry p-3.5 flex flex-col gap-3 relative cursor-pointer group"
       >
-        <!-- Character Card Avatar & Game Badge -->
-        <div class="w-full aspect-square rounded-xl overflow-hidden bg-[#090a0f] flex items-center justify-center relative shadow-inner">
+        <!-- Adaptive Cover Image Container (Natural Aspect Ratio) -->
+        <div class="character-cover-wrap">
           <img 
             src="${avatarSrc}" 
             alt="${c.name}" 
             loading="lazy"
             onerror="this.src='${fallbackAvatar}'"
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+            class="character-cover-img" 
           />
           
           <!-- Game Category Pill -->
@@ -1849,10 +1869,10 @@ function renderFilteredCharacters() {
             type="button"
             onclick="openQuickCrawlModal('${c.name}', event)"
             class="quick-crawl-trigger-btn w-full mt-1.5 py-1.5 px-2 rounded-xl flex items-center justify-center gap-1.5 font-bold cursor-pointer"
-            title="点击一键抓取角色高质量原画"
+            title="点击一键加抓角色高质量原画"
           >
             <i data-lucide="zap" class="w-3.5 h-3.5 fill-current"></i>
-            <span>一键抓取</span>
+            <span>一键加抓</span>
           </button>
         </div>
       </div>
@@ -1860,6 +1880,178 @@ function renderFilteredCharacters() {
   }).join('');
 
   lucide.createIcons({ root: grid });
+}
+
+// ==========================================================================
+// GAME ROSTER SELECTOR MODAL SYSTEM
+// ==========================================================================
+async function openGameRosterModal(gameKey) {
+  const modal = document.getElementById('modal-game-roster');
+  const card = document.getElementById('modal-game-roster-card');
+  if (!modal || !card) return;
+
+  AppState.rosterGame = gameKey || 'wuthering_waves';
+  AppState.rosterKeyword = '';
+
+  const searchInput = document.getElementById('roster-search-input');
+  if (searchInput) searchInput.value = '';
+
+  modal.classList.remove('hidden');
+  requestAnimationFrame(() => {
+    modal.classList.remove('opacity-0');
+    card.classList.remove('scale-95');
+    card.classList.add('scale-100');
+  });
+
+  await switchRosterGame(AppState.rosterGame);
+}
+
+function closeGameRosterModal() {
+  const modal = document.getElementById('modal-game-roster');
+  const card = document.getElementById('modal-game-roster-card');
+  if (!modal || !card) return;
+
+  card.classList.remove('scale-100');
+  card.classList.add('scale-95');
+  modal.classList.add('opacity-0');
+  setTimeout(() => {
+    modal.classList.add('hidden');
+  }, 200);
+}
+
+async function switchRosterGame(gameKey) {
+  AppState.rosterGame = gameKey;
+
+  // Update tabs
+  ['wuthering_waves', 'blue_archive', 'endfield'].forEach(g => {
+    const tabId = g === 'wuthering_waves' ? 'roster-tab-ww' : g === 'blue_archive' ? 'roster-tab-ba' : 'roster-tab-endfield';
+    const tab = document.getElementById(tabId);
+    if (tab) {
+      if (g === gameKey) tab.classList.add('active');
+      else tab.classList.remove('active');
+    }
+  });
+
+  // Update Header
+  const titleEl = document.getElementById('roster-modal-title');
+  const iconEl = document.getElementById('roster-game-icon');
+  if (gameKey === 'wuthering_waves') {
+    if (titleEl) titleEl.innerHTML = `⚡ 鸣潮 · 全量角色图鉴速抓`;
+    if (iconEl) {
+      iconEl.className = 'w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center font-bold text-amber-400 text-lg shadow-inner';
+      iconEl.innerText = '⚡';
+    }
+  } else if (gameKey === 'blue_archive') {
+    if (titleEl) titleEl.innerHTML = `💙 蔚蓝档案 · 全量角色图鉴速抓`;
+    if (iconEl) {
+      iconEl.className = 'w-11 h-11 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center font-bold text-sky-400 text-lg shadow-inner';
+      iconEl.innerText = '💙';
+    }
+  } else {
+    if (titleEl) titleEl.innerHTML = `🔶 明日方舟：终末地 · 全量角色图鉴速抓`;
+    if (iconEl) {
+      iconEl.className = 'w-11 h-11 rounded-xl bg-yellow-500/20 border border-yellow-500/40 flex items-center justify-center font-bold text-yellow-400 text-lg shadow-inner';
+      iconEl.innerText = '🔶';
+    }
+  }
+
+  // Fetch from API
+  try {
+    const res = await apiFetch(`${API_BASE}/api/characters/catalog?game=${gameKey}`);
+    if (res.ok) {
+      const data = await res.json();
+      AppState.rosterCatalog = data || [];
+      const badgeEl = document.getElementById('roster-total-badge');
+      if (badgeEl) badgeEl.innerText = `${data.length} 位角色`;
+      renderRosterCharacters();
+    }
+  } catch (e) {
+    console.error('Failed to load roster catalog:', e);
+  }
+}
+
+function filterRosterCharacters(keyword) {
+  AppState.rosterKeyword = (keyword || '').trim().toLowerCase();
+  renderRosterCharacters();
+}
+
+function renderRosterCharacters() {
+  const container = document.getElementById('roster-chars-grid');
+  if (!container) return;
+
+  let list = AppState.rosterCatalog || [];
+  if (AppState.rosterKeyword) {
+    const kw = AppState.rosterKeyword;
+    list = list.filter(c => {
+      const matchName = (c.name || '').toLowerCase().includes(kw);
+      const matchSlug = (c.slug || '').toLowerCase().includes(kw);
+      const matchAliases = Array.isArray(c.aliases) ? c.aliases.some(a => a.toLowerCase().includes(kw)) : false;
+      return matchName || matchSlug || matchAliases;
+    });
+  }
+
+  if (list.length === 0) {
+    container.innerHTML = `
+      <div class="col-span-full py-16 text-center text-slate-500 font-mono text-xs flex flex-col items-center gap-2">
+        <i data-lucide="inbox" class="w-8 h-8 text-slate-600"></i>
+        <span>未找到匹配的角色</span>
+      </div>
+    `;
+    lucide.createIcons({ root: container });
+    return;
+  }
+
+  container.innerHTML = list.map(c => {
+    const fallbackAvatar = `/static/avatars/${c.slug}.svg`;
+    const avatarSrc = c.avatar_url ? getMediaUrl(c.avatar_url) : fallbackAvatar;
+
+    return `
+      <div 
+        onclick="openQuickCrawlModal('${c.name}', event)"
+        class="roster-char-item group relative"
+      >
+        <div class="w-full aspect-square rounded-xl overflow-hidden bg-black/60 relative border border-white/10 flex items-center justify-center shadow-inner">
+          <img 
+            src="${avatarSrc}" 
+            alt="${c.name}" 
+            loading="lazy"
+            onerror="this.src='${fallbackAvatar}'"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200" 
+          />
+          ${c.is_crawled ? `
+            <div class="absolute top-1.5 left-1.5 z-10">
+              <span class="px-2 py-0.5 rounded-md bg-emerald-500/90 text-black font-extrabold text-[10px] font-mono shadow-md backdrop-blur-md">
+                已收录
+              </span>
+            </div>
+          ` : ''}
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-serif font-bold text-white group-hover:text-[#c5a880] transition-colors truncate">${c.name}</h4>
+          </div>
+
+          <div class="flex items-center justify-between text-[10px] font-mono">
+            ${c.is_crawled ? `
+              <span class="text-emerald-400 font-bold">候选: ${c.total_candidates}</span>
+              <button 
+                onclick="event.stopPropagation(); closeGameRosterModal(); openCharacterGallery('${c.name}')" 
+                class="text-[10px] text-[#c5a880] hover:underline cursor-pointer font-bold"
+              >
+                看画廊 →
+              </button>
+            ` : `
+              <span class="text-slate-400">未收录</span>
+              <span class="text-[#c5a880] font-bold">点击抓取 ⚡</span>
+            `}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  lucide.createIcons({ root: container });
 }
 
 // ==========================================
