@@ -636,3 +636,94 @@ button, a, input, select {
     border-radius: 12px;
   }
 }
+
+/* ==========================================================================
+   GAME CATEGORY FILTER TABS & QUICK CRAWL CARD STYLES
+   ========================================================================== */
+.game-tab-btn {
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  transition: all 0.2s var(--ease);
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.game-tab-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.game-tab-btn.active {
+  color: #0b0d13;
+  background: linear-gradient(135deg, #f3dfc8 0%, #c5a880 100%);
+  border-color: #c5a880;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(197, 168, 128, 0.3);
+}
+
+.game-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.game-badge-blue_archive {
+  background: rgba(14, 165, 233, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(14, 165, 233, 0.35);
+}
+
+.game-badge-wuthering_waves {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.game-badge-endfield {
+  background: rgba(234, 179, 8, 0.18);
+  color: #facc15;
+  border: 1px solid rgba(234, 179, 8, 0.45);
+}
+
+.game-badge-other {
+  background: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.quick-crawl-trigger-btn {
+  background: linear-gradient(135deg, rgba(197, 168, 128, 0.9) 0%, rgba(255, 92, 138, 0.85) 100%);
+  color: #0b0d13;
+  font-weight: 800;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  box-shadow: 0 4px 12px rgba(197, 168, 128, 0.3);
+  transition: all 0.2s var(--ease);
+}
+
+.quick-crawl-trigger-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 92, 138, 0.45);
+  color: #000000;
+}
+
+.quick-crawl-trigger-btn:active {
+  transform: scale(0.96);
+}
+

@@ -1,7 +1,10 @@
 import re
 import logging
 import httpx
-import pypinyin
+try:
+    import pypinyin
+except ImportError:
+    pypinyin = None
 from typing import List, Tuple, Dict, Optional
 from database import get_connection
 
@@ -218,6 +221,17 @@ STATIC_CHARACTER_MAP: Dict[str, Tuple[List[str], str]] = {
     "白上吹雪": (["shirakami_fubuki"], "白上フブキ")
 }
 
+# Auto-inject catalog entries & aliases into STATIC_CHARACTER_MAP
+try:
+    from services.character_catalog import CHARACTER_CATALOG
+    for item in CHARACTER_CATALOG:
+        val = (item["booru_tags"], item["pixiv_tag"])
+        STATIC_CHARACTER_MAP[item["name"]] = val
+        for alias in item.get("aliases", []):
+            STATIC_CHARACTER_MAP[alias] = val
+except Exception as _e:
+    logger.warning(f"Could not load character catalog into resolver: {_e}")
+
 class CharacterResolver:
     """
     Intelligent Character Tag Resolver.
@@ -286,7 +300,7 @@ class CharacterResolver:
             return online_res
 
         # 5. Pinyin & Generic Fallback
-        py_list = pypinyin.lazy_pinyin(clean_name)
+        py_list = pypinyin.lazy_pinyin(clean_name) if pypinyin else [clean_name.lower()]
         booru_tags = []
         if len(py_list) >= 2:
             surname_given = py_list[0] + '_' + ''.join(py_list[1:])

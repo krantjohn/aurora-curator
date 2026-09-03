@@ -6,16 +6,23 @@ from models import CharacterOut
 router = APIRouter(prefix="/api/characters", tags=["Characters"])
 
 @router.get("", response_model=List[CharacterOut])
-async def list_characters():
+async def list_characters(game: Optional[str] = None):
     conn = get_connection()
-    rows = conn.execute("""
+    query = """
         SELECT 
-            c.id, c.name, c.slug, c.avatar_url, c.created_at, c.last_searched_at,
+            c.id, c.name, c.slug, c.avatar_url, c.game, c.aliases, c.created_at, c.last_searched_at,
             (SELECT COUNT(*) FROM images WHERE character_id = c.id AND status IN ('pending', 'saved')) as total_candidates,
             (SELECT COUNT(*) FROM images WHERE character_id = c.id AND status = 'saved') as total_favorites
         FROM characters c
-        ORDER BY c.last_searched_at DESC, c.id DESC
-    """).fetchall()
+    """
+    params = []
+    if game and game.lower() != "all":
+        query += " WHERE c.game = ?"
+        params.append(game.lower())
+    
+    query += " ORDER BY c.total_favorites DESC, c.total_candidates DESC, c.last_searched_at DESC, c.id ASC"
+
+    rows = conn.execute(query, params).fetchall()
     conn.close()
 
     results = []
@@ -32,6 +39,8 @@ async def list_characters():
             id=r["id"],
             name=r["name"],
             slug=r["slug"],
+            game=r["game"] if "game" in r.keys() and r["game"] else "other",
+            aliases=r["aliases"] if "aliases" in r.keys() else None,
             avatar_url=avatar,
             created_at=str(r["created_at"]),
             last_searched_at=str(r["last_searched_at"]) if r["last_searched_at"] else None,
@@ -39,6 +48,12 @@ async def list_characters():
             total_favorites=r["total_favorites"]
         ))
     return results
+
+@router.post("/seed")
+async def seed_characters_endpoint():
+    from database import seed_characters
+    seed_characters()
+    return {"status": "ok", "message": "Predefined characters seeded successfully"}
 
 @router.get("/{name_or_id}")
 async def get_character(name_or_id: str):

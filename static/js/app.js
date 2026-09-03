@@ -467,7 +467,13 @@ const AppState = {
   layoutMode: localStorage.getItem('aurora_layout_mode') || 'single', // 'single', '2col', 'masonry'
   favLayoutMode: localStorage.getItem('aurora_fav_layout_mode') || 'single',
   lightboxIndex: 0,
-  taskPollInterval: null
+  taskPollInterval: null,
+  cachedCharacters: [],
+  activeGameFilter: 'all',
+  characterKeyword: '',
+  quickCrawlTarget: null,
+  quickCrawlRating: localStorage.getItem('aurora_qc_rating') || 'sfw',
+  quickCrawlLimit: parseInt(localStorage.getItem('aurora_qc_limit'), 10) || 50
 };
 
 // Rating Mode Switchers
@@ -1682,7 +1688,45 @@ function handleLightboxSwipe() {
   }
 }
 
-// Characters Library
+// ==========================================================================
+// CHARACTERS LIBRARY & QUICK CRAWL MODAL SYSTEM
+// ==========================================================================
+
+function getGameMeta(gameKey) {
+  switch (gameKey) {
+    case 'blue_archive':
+      return { title: '蔚蓝档案', badgeClass: 'game-badge game-badge-blue_archive', dotClass: 'bg-sky-400' };
+    case 'wuthering_waves':
+      return { title: '鸣潮', badgeClass: 'game-badge game-badge-wuthering_waves', dotClass: 'bg-amber-400' };
+    case 'endfield':
+      return { title: '终末地', badgeClass: 'game-badge game-badge-endfield', dotClass: 'bg-yellow-400' };
+    default:
+      return { title: '经典收录', badgeClass: 'game-badge game-badge-other', dotClass: 'bg-slate-400' };
+  }
+}
+
+function setGameCategoryFilter(game) {
+  AppState.activeGameFilter = game || 'all';
+  
+  ['all', 'blue_archive', 'wuthering_waves', 'endfield'].forEach(g => {
+    const btn = document.getElementById(`game-tab-${g}`);
+    if (btn) {
+      if (g === AppState.activeGameFilter) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    }
+  });
+
+  renderFilteredCharacters();
+}
+
+function filterCharactersByKeyword(query) {
+  AppState.characterKeyword = (query || '').trim().toLowerCase();
+  renderFilteredCharacters();
+}
+
 async function loadCharactersList() {
   const grid = document.getElementById('characters-grid');
   if (!grid) return;
@@ -1691,44 +1735,325 @@ async function loadCharactersList() {
     const res = await apiFetch(`${API_BASE}/api/characters`);
     if (!res.ok) return;
     const chars = await res.json();
+    AppState.cachedCharacters = chars || [];
 
-    if (chars.length === 0) {
-      grid.innerHTML = `<div class="col-span-full py-16 text-center text-slate-500 font-mono text-xs">暂无收录角色，请在首页发起搜索</div>`;
-      return;
-    }
+    // Update counts across game tabs
+    const countAll = chars.length;
+    const countBA = chars.filter(c => c.game === 'blue_archive').length;
+    const countWW = chars.filter(c => c.game === 'wuthering_waves').length;
+    const countEnd = chars.filter(c => c.game === 'endfield').length;
 
-    grid.innerHTML = chars.map(c => `
+    const elAll = document.getElementById('count-all');
+    if (elAll) elAll.innerText = countAll;
+    const elBA = document.getElementById('count-blue_archive');
+    if (elBA) elBA.innerText = countBA;
+    const elWW = document.getElementById('count-wuthering_waves');
+    if (elWW) elWW.innerText = countWW;
+    const elEnd = document.getElementById('count-endfield');
+    if (elEnd) elEnd.innerText = countEnd;
+    const elBadge = document.getElementById('char-total-count-badge');
+    if (elBadge) elBadge.innerText = `已收录 ${countAll} 位角色`;
+
+    renderFilteredCharacters();
+  } catch (e) {
+    console.error('Failed to load characters:', e);
+  }
+}
+
+function renderFilteredCharacters() {
+  const grid = document.getElementById('characters-grid');
+  if (!grid) return;
+
+  let list = AppState.cachedCharacters || [];
+
+  // Filter by game
+  if (AppState.activeGameFilter && AppState.activeGameFilter !== 'all') {
+    list = list.filter(c => c.game === AppState.activeGameFilter);
+  }
+
+  // Filter by keyword
+  if (AppState.characterKeyword) {
+    const kw = AppState.characterKeyword;
+    list = list.filter(c => {
+      const matchName = (c.name || '').toLowerCase().includes(kw);
+      const matchSlug = (c.slug || '').toLowerCase().includes(kw);
+      const matchAliases = (c.aliases || '').toLowerCase().includes(kw);
+      return matchName || matchSlug || matchAliases;
+    });
+  }
+
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div class="col-span-full py-16 text-center text-slate-500 font-mono text-xs flex flex-col items-center gap-3">
+        <i data-lucide="inbox" class="w-8 h-8 text-slate-600"></i>
+        <span>没有找到符合条件的角色</span>
+      </div>
+    `;
+    lucide.createIcons({ root: grid });
+    return;
+  }
+
+  grid.innerHTML = list.map(c => {
+    const gameMeta = getGameMeta(c.game);
+    const fallbackAvatar = `/static/avatars/${c.slug}.svg`;
+    const avatarSrc = c.avatar_url ? getMediaUrl(c.avatar_url) : fallbackAvatar;
+
+    return `
       <div 
-        onclick="openCharacterGallery('${c.name}')" 
-        class="p-4 rounded-2xl bg-[#13141c] border border-white/10 hover:border-[#c5a880]/50 transition-all cursor-pointer group shadow-lg flex flex-col gap-3 relative"
+        onclick="openQuickCrawlModal('${c.name}', event)"
+        class="p-3.5 rounded-2xl bg-[#13141c] border border-white/10 hover:border-[#c5a880]/50 transition-all cursor-pointer group shadow-lg flex flex-col gap-3 relative hover:scale-[1.02]"
       >
-        <div class="w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#090a0f] flex items-center justify-center relative">
-          ${c.avatar_url ? `
-            <img src="${getMediaUrl(c.avatar_url)}" alt="${c.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-          ` : `
-            <i data-lucide="user" class="w-10 h-10 text-slate-600"></i>
-          `}
-          <button 
-            onclick="deleteCharacterRecord(${c.id}, '${c.name}', event)"
-            class="absolute top-2 right-2 p-2 rounded-xl bg-black/70 hover:bg-red-500 text-white/80 hover:text-white backdrop-blur-md border border-white/10 transition-all opacity-80 group-hover:opacity-100"
-            title="彻底删除角色并释放空间"
-          >
-            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-          </button>
+        <!-- Character Card Avatar & Game Badge -->
+        <div class="w-full aspect-square rounded-xl overflow-hidden bg-[#090a0f] flex items-center justify-center relative shadow-inner">
+          <img 
+            src="${avatarSrc}" 
+            alt="${c.name}" 
+            loading="lazy"
+            onerror="this.src='${fallbackAvatar}'"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+          />
+          
+          <!-- Game Category Pill -->
+          <div class="absolute top-2 left-2 z-10">
+            <span class="${gameMeta.badgeClass} shadow-md backdrop-blur-md">
+              <span class="w-1.5 h-1.5 rounded-full ${gameMeta.dotClass}"></span>
+              ${gameMeta.title}
+            </span>
+          </div>
+
+          <!-- Quick Action Buttons on Hover -->
+          <div class="absolute top-2 right-2 z-10 flex items-center gap-1 opacity-80 group-hover:opacity-100 transition-opacity">
+            <button 
+              onclick="deleteCharacterRecord(${c.id}, '${c.name}', event)"
+              class="p-1.5 rounded-lg bg-black/70 hover:bg-red-500 text-white/70 hover:text-white backdrop-blur-md border border-white/10 transition-all"
+              title="清理未收藏的临时候选图"
+            >
+              <i data-lucide="trash-2" class="w-3 h-3"></i>
+            </button>
+          </div>
         </div>
-        <div>
-          <div class="flex items-center justify-between">
+
+        <!-- Character Details & Stats -->
+        <div class="flex flex-col gap-1">
+          <div class="flex items-center justify-between gap-1">
             <h4 class="text-sm font-serif font-bold text-white group-hover:text-[#c5a880] transition-colors truncate">${c.name}</h4>
           </div>
-          <span class="text-xs text-slate-400 font-mono">候选: ${c.total_candidates} 张 · 收藏: ${c.total_favorites}</span>
+          
+          <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>候选: <strong class="text-slate-200">${c.total_candidates}</strong></span>
+            <span>收藏: <strong class="text-[#c5a880]">${c.total_favorites}</strong></span>
+          </div>
+
+          <!-- Quick Crawl Action Trigger Button -->
+          <button 
+            type="button"
+            onclick="openQuickCrawlModal('${c.name}', event)"
+            class="quick-crawl-trigger-btn w-full mt-1.5 py-1.5 px-2 rounded-xl flex items-center justify-center gap-1.5 font-bold cursor-pointer"
+            title="点击一键抓取角色高质量原画"
+          >
+            <i data-lucide="zap" class="w-3.5 h-3.5 fill-current"></i>
+            <span>一键抓取</span>
+          </button>
         </div>
       </div>
-    `).join('');
+    `;
+  }).join('');
 
-    lucide.createIcons({ root: grid });
-  } catch (e) {
-    console.error(e);
+  lucide.createIcons({ root: grid });
+}
+
+// ==========================================
+// QUICK CRAWL MODAL INTERACTION LOGIC
+// ==========================================
+function openQuickCrawlModal(charName, event) {
+  if (event) event.stopPropagation();
+
+  const char = (AppState.cachedCharacters || []).find(c => c.name === charName) || {
+    name: charName,
+    slug: charName.toLowerCase(),
+    game: 'other',
+    total_candidates: 0,
+    total_favorites: 0
+  };
+
+  AppState.quickCrawlTarget = char;
+
+  const modal = document.getElementById('modal-quick-crawl');
+  const card = document.getElementById('modal-quick-crawl-card');
+  if (!modal || !card) return;
+
+  // Fill in character info
+  const nameEl = document.getElementById('qc-char-name');
+  if (nameEl) nameEl.innerText = char.name;
+
+  const imgEl = document.getElementById('qc-avatar-img');
+  const fallback = `/static/avatars/${char.slug}.svg`;
+  if (imgEl) {
+    imgEl.src = char.avatar_url ? getMediaUrl(char.avatar_url) : fallback;
+    imgEl.onerror = () => { imgEl.src = fallback; };
   }
+
+  const badgeEl = document.getElementById('qc-game-badge');
+  if (badgeEl) {
+    const meta = getGameMeta(char.game);
+    badgeEl.className = meta.badgeClass;
+    badgeEl.innerText = meta.title;
+  }
+
+  const statsEl = document.getElementById('qc-char-stats');
+  if (statsEl) {
+    statsEl.innerText = `历史候选: ${char.total_candidates} 张 · 已收藏: ${char.total_favorites} 张`;
+  }
+
+  // Restore Rating
+  setQuickCrawlRating(AppState.quickCrawlRating || 'sfw');
+
+  // Restore Limit
+  setQuickCrawlLimit(AppState.quickCrawlLimit || 50);
+
+  modal.classList.remove('hidden');
+  requestAnimationFrame(() => {
+    modal.classList.remove('opacity-0');
+    card.classList.remove('scale-95');
+    card.classList.add('scale-100');
+  });
+
+  lucide.createIcons({ root: modal });
+}
+
+function closeQuickCrawlModal() {
+  const modal = document.getElementById('modal-quick-crawl');
+  const card = document.getElementById('modal-quick-crawl-card');
+  if (!modal || !card) return;
+
+  card.classList.remove('scale-100');
+  card.classList.add('scale-95');
+  modal.classList.add('opacity-0');
+  setTimeout(() => {
+    modal.classList.add('hidden');
+  }, 200);
+}
+
+function setQuickCrawlRating(rating) {
+  AppState.quickCrawlRating = rating;
+
+  const sfwBtn = document.getElementById('qc-rating-sfw');
+  const r18Btn = document.getElementById('qc-rating-r18');
+
+  if (sfwBtn && r18Btn) {
+    if (rating === 'r18') {
+      r18Btn.className = 'batch-rating-pill-btn active-r18';
+      sfwBtn.className = 'batch-rating-pill-btn';
+    } else {
+      sfwBtn.className = 'batch-rating-pill-btn active-sfw';
+      r18Btn.className = 'batch-rating-pill-btn';
+    }
+  }
+
+  const rememberCheckbox = document.getElementById('qc-remember-pref');
+  if (rememberCheckbox && rememberCheckbox.checked) {
+    localStorage.setItem('aurora_qc_rating', rating);
+  }
+}
+
+function setQuickCrawlLimit(limit) {
+  const num = Math.max(1, Math.min(300, parseInt(limit, 10) || 50));
+  AppState.quickCrawlLimit = num;
+
+  const displayEl = document.getElementById('qc-limit-display');
+  if (displayEl) displayEl.innerText = num;
+
+  // Update preset buttons
+  document.querySelectorAll('[data-qc-limit]').forEach(btn => {
+    const btnLimit = parseInt(btn.getAttribute('data-qc-limit'), 10);
+    if (btnLimit === num) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  const customInput = document.getElementById('qc-custom-limit');
+  if (customInput && ![20, 50, 100, 150, 200].includes(num)) {
+    customInput.value = num;
+  } else if (customInput && [20, 50, 100, 150, 200].includes(num)) {
+    customInput.value = '';
+  }
+
+  const rememberCheckbox = document.getElementById('qc-remember-pref');
+  if (rememberCheckbox && rememberCheckbox.checked) {
+    localStorage.setItem('aurora_qc_limit', num);
+  }
+}
+
+function onQuickCrawlCustomLimit(val) {
+  if (!val) return;
+  const num = Math.max(1, Math.min(300, parseInt(val, 10) || 20));
+  AppState.quickCrawlLimit = num;
+
+  const displayEl = document.getElementById('qc-limit-display');
+  if (displayEl) displayEl.innerText = num;
+
+  document.querySelectorAll('[data-qc-limit]').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  const rememberCheckbox = document.getElementById('qc-remember-pref');
+  if (rememberCheckbox && rememberCheckbox.checked) {
+    localStorage.setItem('aurora_qc_limit', num);
+  }
+}
+
+async function executeQuickCrawl() {
+  if (!AppState.quickCrawlTarget) return;
+  const char = AppState.quickCrawlTarget;
+  const limit = AppState.quickCrawlLimit || 50;
+  const rating = AppState.quickCrawlRating || 'sfw';
+
+  // Save preferences
+  const rememberCheckbox = document.getElementById('qc-remember-pref');
+  if (rememberCheckbox && rememberCheckbox.checked) {
+    localStorage.setItem('aurora_qc_rating', rating);
+    localStorage.setItem('aurora_qc_limit', limit);
+  }
+
+  closeQuickCrawlModal();
+
+  // Create crawl task
+  try {
+    showToast(`🚀 已为【${char.name}】发起抓取 (${limit} 张 · ${rating === 'r18' ? '🔞 R-18' : '🍀 全年龄'})...`, 'success');
+
+    const res = await apiFetch(`${API_BASE}/api/tasks`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        character_name: char.name,
+        limit: limit,
+        rating: rating
+      })
+    });
+
+    if (res.ok) {
+      const task = await res.json();
+      showToast(`任务已启动 [${task.id.slice(0, 8)}]，正在高速下载原画并感知去重...`, 'success');
+      
+      // Auto open character gallery so user immediately sees images stream in
+      await openCharacterGallery(char.name);
+      startTaskPolling();
+    } else {
+      const err = await res.json();
+      showToast(err.detail || '创建抓取任务失败', 'error');
+    }
+  } catch (e) {
+    showToast('启动抓取失败: ' + e.message, 'error');
+  }
+}
+
+function openDirectGalleryFromModal() {
+  if (!AppState.quickCrawlTarget) return;
+  const char = AppState.quickCrawlTarget;
+  closeQuickCrawlModal();
+  openCharacterGallery(char.name);
 }
 
 async function deleteCharacterRecord(charId, charName, event) {

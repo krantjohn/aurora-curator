@@ -179,16 +179,40 @@
             </div>
           </div>
 
-          <!-- Hot Character Recommendation Chips -->
-          <div class="flex items-center gap-2 flex-wrap pt-2">
-            <span class="text-[11px] font-mono text-slate-500">热门推荐：</span>
-            <button onclick="fillSearch('初音未来')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">初音未来</button>
-            <button onclick="fillSearch('雷电将军')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">雷电将军</button>
-            <button onclick="fillSearch('芙宁娜')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">芙宁娜</button>
-            <button onclick="fillSearch('爱蜜莉雅')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">爱蜜莉雅</button>
-            <button onclick="fillSearch('圣园未花')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">圣园未花</button>
-            <button onclick="fillSearch('喜多川海梦')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">喜多川海梦</button>
-            <button onclick="fillSearch('时崎狂三')" class="px-3 py-1 rounded-full bg-white/[0.04] hover:bg-[#c5a880]/15 hover:border-[#c5a880]/40 border border-white/10 text-slate-300 hover:text-[#c5a880] text-xs font-mono transition-all">时崎狂三</button>
+          <!-- Hot Character Recommendation Chips by Game -->
+          <div class="flex flex-col gap-2 pt-2 text-xs font-mono">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-[11px] text-sky-400 font-bold flex items-center gap-1">💙 蔚蓝档案:</span>
+              <button onclick="openQuickCrawlModal('妃咲')" class="px-2.5 py-1 rounded-lg bg-sky-500/10 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 hover:text-white text-xs font-mono transition-all">妃咲</button>
+              <button onclick="openQuickCrawlModal('圣园未花')" class="px-2.5 py-1 rounded-lg bg-sky-500/10 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 hover:text-white text-xs font-mono transition-all">圣园未花</button>
+              <button onclick="openQuickCrawlModal('白洲梓')" class="px-2.5 py-1 rounded-lg bg-sky-500/10 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 hover:text-white text-xs font-mono transition-all">白洲梓</button>
+              <button onclick="openQuickCrawlModal('小鸟游星野')" class="px-2.5 py-1 rounded-lg bg-sky-500/10 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 hover:text-white text-xs font-mono transition-all">星野</button>
+              <button onclick="openQuickCrawlModal('砂狼白子')" class="px-2.5 py-1 rounded-lg bg-sky-500/10 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 hover:text-white text-xs font-mono transition-all">白子</button>
+              <button onclick="openQuickCrawlModal('早濑优香')" class="px-2.5 py-1 rounded-lg bg-sky-500/10 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 hover:text-white text-xs font-mono transition-all">优香</button>
+              <button onclick="openQuickCrawlModal('空崎日奈')" class="px-2.5 py-1 rounded-lg bg-sky-500/10 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 hover:text-white text-xs font-mono transition-all">日奈</button>
+              <button onclick="openQuickCrawlModal('天童爱丽丝')" class="px-2.5 py-1 rounded-lg bg-sky-500/10 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 hover:text-white text-xs font-mono transition-all">爱丽丝</button>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-[11px] text-amber-400 font-bold flex items-center gap-1">⚡ 鸣潮:</span>
+              <button onclick="openQuickCrawlModal('今汐')" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-mono transition-all">今汐</button>
+              <button onclick="openQuickCrawlModal('长离')" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-mono transition-all">长离</button>
+              <button onclick="openQuickCrawlModal('守岸人')" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-mono transition-all">守岸人</button>
+              <button onclick="openQuickCrawlModal('椿')" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-mono transition-all">椿</button>
+              <button onclick="openQuickCrawlModal('吟霖')" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-mono transition-all">吟霖</button>
+              <button onclick="openQuickCrawlModal('折枝')" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-mono transition-all">折枝</button>
+              <button onclick="openQuickCrawlModal('安可')" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-mono transition-all">安可</button>
+              <button onclick="openQuickCrawlModal('维里奈')" class="px-2.5 py-1 rounded-lg bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 hover:text-white text-xs font-mono transition-all">维里奈</button>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-[11px] text-yellow-400 font-bold flex items-center gap-1">🔶 终末地:</span>
+              <button onclick="openQuickCrawlModal('佩丽卡')" class="px-2.5 py-1 rounded-lg bg-yellow-500/10 hover:bg-yellow-500/25 border border-yellow-500/30 text-yellow-300 hover:text-white text-xs font-mono transition-all">佩丽卡</button>
+              <button onclick="openQuickCrawlModal('陈千语')" class="px-2.5 py-1 rounded-lg bg-yellow-500/10 hover:bg-yellow-500/25 border border-yellow-500/30 text-yellow-300 hover:text-white text-xs font-mono transition-all">陈千语</button>
+              <button onclick="openQuickCrawlModal('庄方宜')" class="px-2.5 py-1 rounded-lg bg-yellow-500/10 hover:bg-yellow-500/25 border border-yellow-500/30 text-yellow-300 hover:text-white text-xs font-mono transition-all">庄方宜</button>
+              <button onclick="openQuickCrawlModal('狼卫')" class="px-2.5 py-1 rounded-lg bg-yellow-500/10 hover:bg-yellow-500/25 border border-yellow-500/30 text-yellow-300 hover:text-white text-xs font-mono transition-all">狼卫</button>
+              <button onclick="openQuickCrawlModal('艾维文娜')" class="px-2.5 py-1 rounded-lg bg-yellow-500/10 hover:bg-yellow-500/25 border border-yellow-500/30 text-yellow-300 hover:text-white text-xs font-mono transition-all">艾维文娜</button>
+              <button onclick="openQuickCrawlModal('莱万汀')" class="px-2.5 py-1 rounded-lg bg-yellow-500/10 hover:bg-yellow-500/25 border border-yellow-500/30 text-yellow-300 hover:text-white text-xs font-mono transition-all">莱万汀</button>
+              <button onclick="openQuickCrawlModal('余烬')" class="px-2.5 py-1 rounded-lg bg-yellow-500/10 hover:bg-yellow-500/25 border border-yellow-500/30 text-yellow-300 hover:text-white text-xs font-mono transition-all">余烬</button>
+            </div>
           </div>
         </div>
 
@@ -435,14 +459,51 @@
          VIEW 3: 角色库 (CHARACTERS LIBRARY VIEW)
          ==================================================================== -->
     <section id="view-characters" class="spa-view hidden flex flex-col gap-6">
-      <div class="flex items-center justify-between">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 class="text-2xl font-serif font-extrabold text-white">已收录动漫角色</h2>
-          <p class="text-xs text-slate-400 mt-1">点击任意角色卡片，进入专属原画筛选工作台</p>
+          <div class="flex items-center gap-2">
+            <h2 class="text-2xl font-serif font-extrabold text-white">角色图鉴与一键抓取</h2>
+            <span id="char-total-count-badge" class="px-2.5 py-0.5 rounded-full bg-[#c5a880]/15 text-[#c5a880] border border-[#c5a880]/30 text-xs font-mono font-bold">已收录 65+ 角色</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">点击角色头像或卡片即可一键发起高质量原画抓取，支持数量与全年龄/R-18属性自定义</p>
+        </div>
+
+        <!-- In-Library Filter & Search -->
+        <div class="flex items-center gap-3">
+          <div class="relative w-full sm:w-64">
+            <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+            <input 
+              type="text" 
+              id="char-search-input" 
+              placeholder="搜索角色名、别名或拼音..." 
+              oninput="filterCharactersByKeyword(this.value)"
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#14151e] border border-white/10 text-xs text-white placeholder:text-slate-500 outline-none focus:border-[#c5a880] transition-colors"
+            />
+          </div>
         </div>
       </div>
 
-      <div id="characters-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <!-- Game Category Filter Bar -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-mono scrollbar-none">
+        <button onclick="setGameCategoryFilter('all')" id="game-tab-all" class="game-tab-btn active">
+          <span>🌟 全部角色 (<span id="count-all">0</span>)</span>
+        </button>
+        <button onclick="setGameCategoryFilter('blue_archive')" id="game-tab-blue_archive" class="game-tab-btn">
+          <span class="w-2 h-2 rounded-full bg-sky-400 inline-block"></span>
+          <span>蔚蓝档案 (<span id="count-blue_archive">0</span>)</span>
+        </button>
+        <button onclick="setGameCategoryFilter('wuthering_waves')" id="game-tab-wuthering_waves" class="game-tab-btn">
+          <span class="w-2 h-2 rounded-full bg-amber-400 inline-block"></span>
+          <span>鸣潮 (<span id="count-wuthering_waves">0</span>)</span>
+        </button>
+        <button onclick="setGameCategoryFilter('endfield')" id="game-tab-endfield" class="game-tab-btn">
+          <span class="w-2 h-2 rounded-full bg-yellow-400 inline-block"></span>
+          <span>终末地 (<span id="count-endfield">0</span>)</span>
+        </button>
+      </div>
+
+      <!-- Characters Grid -->
+      <div id="characters-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         <!-- Characters loaded via JS -->
       </div>
     </section>
@@ -926,6 +987,122 @@
       >
         <span>🚀 立即抓取下批（<strong id="cfg-submit-count">20</strong> 张 · <span id="cfg-submit-rating">🍀 全年龄</span>）</span>
       </button>
+
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL: 角色一键抓取配置弹窗 (QUICK CHARACTER CRAWL MODAL)
+       ==================================================================== -->
+  <div id="modal-quick-crawl" class="batch-modal-backdrop hidden opacity-0" onclick="if(event.target === this) closeQuickCrawlModal()">
+    <div class="batch-modal-card scale-95" id="modal-quick-crawl-card">
+      
+      <!-- Modal Header with Character Avatar & Name -->
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-3">
+          <div id="qc-avatar-container" class="w-12 h-12 rounded-xl overflow-hidden bg-black/60 border border-white/15 flex items-center justify-center shrink-0">
+            <img id="qc-avatar-img" src="" class="w-full h-full object-cover" />
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h3 id="qc-char-name" class="text-base font-serif font-bold text-white">角色名</h3>
+              <span id="qc-game-badge" class="game-badge game-badge-blue_archive">蔚蓝档案</span>
+            </div>
+            <p id="qc-char-stats" class="text-[11px] text-slate-400 font-mono mt-0.5">历史候选: 0 张 · 已收藏: 0 张</p>
+          </div>
+        </div>
+        <button onclick="closeQuickCrawlModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Section 1: 内容属性模式 (SFW / R-18 严格隔离) -->
+      <div class="flex flex-col gap-2 pt-1">
+        <div class="flex items-center justify-between">
+          <label class="text-xs text-slate-300 font-mono font-bold">画作属性 (严格互斥)</label>
+          <span class="text-[10px] text-slate-500 font-mono">全年龄与成人画作独立分流</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <button 
+            type="button"
+            id="qc-rating-sfw"
+            onclick="setQuickCrawlRating('sfw')" 
+            class="batch-rating-pill-btn active-sfw"
+          >
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>🍀 全年龄 (SFW)</span>
+          </button>
+          <button 
+            type="button"
+            id="qc-rating-r18"
+            onclick="setQuickCrawlRating('r18')" 
+            class="batch-rating-pill-btn"
+          >
+            <i data-lucide="flame" class="w-3.5 h-3.5 text-pink-400"></i>
+            <span>🔞 限制级 (R-18)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Section 2: 抓取数量选择 (Batch Count) -->
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <label class="text-xs text-slate-300 font-mono font-bold">单次抓取数量</label>
+          <span class="text-[11px] text-[#c5a880] font-mono">计划获取: <strong id="qc-limit-display">50</strong> 张原画</span>
+        </div>
+        <div class="batch-modal-preset-grid">
+          <button type="button" onclick="setQuickCrawlLimit(20)" class="cfg-limit-btn" data-qc-limit="20">20</button>
+          <button type="button" onclick="setQuickCrawlLimit(50)" class="cfg-limit-btn active" data-qc-limit="50">50</button>
+          <button type="button" onclick="setQuickCrawlLimit(100)" class="cfg-limit-btn" data-qc-limit="100">100</button>
+          <button type="button" onclick="setQuickCrawlLimit(150)" class="cfg-limit-btn" data-qc-limit="150">150</button>
+          <button type="button" onclick="setQuickCrawlLimit(200)" class="cfg-limit-btn" data-qc-limit="200">200</button>
+        </div>
+
+        <!-- Custom Input -->
+        <div class="flex items-center gap-2 p-2 rounded-xl bg-black/50 border border-white/10 text-xs font-mono">
+          <span class="text-slate-400">自定义数量:</span>
+          <input 
+            type="number" 
+            id="qc-custom-limit" 
+            min="1" 
+            max="300" 
+            placeholder="1-300" 
+            oninput="onQuickCrawlCustomLimit(this.value)"
+            class="flex-1 px-2.5 py-1 rounded-lg bg-black/70 border border-white/15 text-white font-bold text-center outline-none focus:border-[#c5a880]"
+          />
+          <span class="text-slate-400">张</span>
+        </div>
+      </div>
+
+      <!-- Quick Option: Remember Preference -->
+      <div class="flex items-center justify-between pt-1 text-xs font-mono text-slate-400">
+        <label class="flex items-center gap-2 cursor-pointer select-none">
+          <input type="checkbox" id="qc-remember-pref" class="rounded accent-[#c5a880]" checked />
+          <span>记住抓取偏好（下次点击优先套用）</span>
+        </label>
+      </div>
+
+      <!-- Section 3: Dual Action Buttons -->
+      <div class="flex flex-col gap-2 pt-2">
+        <button 
+          id="qc-submit-btn"
+          type="button" 
+          onclick="executeQuickCrawl()" 
+          class="batch-modal-hero-btn w-full"
+        >
+          <i data-lucide="zap" class="w-4 h-4"></i>
+          <span>🚀 立即一键抓取并打开画廊</span>
+        </button>
+        
+        <button 
+          type="button" 
+          onclick="openDirectGalleryFromModal()" 
+          class="w-full py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 text-xs font-mono font-semibold transition-all flex items-center justify-center gap-1.5"
+        >
+          <i data-lucide="image" class="w-3.5 h-3.5"></i>
+          <span>进入画廊工作台 (仅查看)</span>
+        </button>
+      </div>
 
     </div>
   </div>

@@ -9,6 +9,8 @@ class CharacterBase(BaseModel):
 class CharacterOut(CharacterBase):
     id: int
     slug: str
+    game: Optional[str] = "other"
+    aliases: Optional[str] = None
     created_at: str
     last_searched_at: Optional[str] = None
     total_candidates: int = 0

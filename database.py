@@ -41,6 +41,12 @@ def init_db():
     try:
         cursor.execute("ALTER TABLE characters ADD COLUMN current_page INTEGER DEFAULT 1")
     except sqlite3.OperationalError: pass
+    try:
+        cursor.execute("ALTER TABLE characters ADD COLUMN game TEXT DEFAULT 'other'")
+    except sqlite3.OperationalError: pass
+    try:
+        cursor.execute("ALTER TABLE characters ADD COLUMN aliases TEXT")
+    except sqlite3.OperationalError: pass
 
     # 2. 图片表 (含 Google Photos 预留字段)
     cursor.execute("""
@@ -165,8 +171,57 @@ def init_db():
         cursor.execute("INSERT OR IGNORE INTO settings (key, value, description) VALUES (?, ?, ?)", (k, v, desc))
 
     conn.commit()
+    seed_characters(conn)
     conn.close()
     logger.info("Database initialized successfully.")
+
+def seed_characters(conn=None):
+    """
+    Seed or update predefined characters from CHARACTER_CATALOG for
+    Blue Archive, Wuthering Waves, and Arknights: Endfield.
+    """
+    close_after = False
+    if conn is None:
+        conn = get_connection()
+        close_after = True
+
+    try:
+        from services.character_catalog import CHARACTER_CATALOG
+    except Exception as e:
+        logger.warning(f"Could not import CHARACTER_CATALOG: {e}")
+        return
+
+    cursor = conn.cursor()
+    for item in CHARACTER_CATALOG:
+        name = item["name"]
+        slug = item["slug"]
+        game = item["game"]
+        aliases_json = json.dumps(item.get("aliases", []), ensure_ascii=False)
+        default_avatar = f"/static/avatars/{slug}.svg"
+
+        existing = cursor.execute("SELECT id, avatar_url, game, aliases FROM characters WHERE name = ?", (name,)).fetchone()
+        if existing:
+            cur_avatar = existing["avatar_url"]
+            if not cur_avatar or cur_avatar.endswith(".svg"):
+                new_avatar = default_avatar
+            else:
+                new_avatar = cur_avatar
+
+            cursor.execute("""
+                UPDATE characters 
+                SET slug = ?, game = ?, aliases = ?, avatar_url = ?
+                WHERE id = ?
+            """, (slug, game, aliases_json, new_avatar, existing["id"]))
+        else:
+            cursor.execute("""
+                INSERT OR IGNORE INTO characters (name, slug, game, aliases, avatar_url, current_page)
+                VALUES (?, ?, ?, ?, ?, 1)
+            """, (name, slug, game, aliases_json, default_avatar))
+
+    conn.commit()
+    if close_after:
+        conn.close()
+    logger.info("Character seed completed successfully.")
 
 if __name__ == "__main__":
     init_db()
